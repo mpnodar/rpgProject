@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include "inventory.cpp"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class character {
 
     string action;
     string name;
+    Stack inventory;
     int health;
     int magicka;
     int stamina;
@@ -113,15 +115,15 @@ class character {
     virtual void run () {}
 
     virtual void restoreHealth () {
-        health += 15;
+        health += 25;
     }
 
     virtual void restoreMagicka () {
-        magicka += 15;
+        magicka += 25;
     }
 
     virtual void restoreStamina () {
-        stamina += 15;
+        stamina += 25;
     }
 
     string getAction () {
@@ -183,7 +185,7 @@ class enemy : public character {
         }
         else if (choice <= 66 && choice > 33 && stamina == 0) {
             cout << "   The " << name << " tries to defend but is out of stamina.";
-            action = "Null";
+            action = "restoreStamina";
         }
 
         if (choice >= 67 && choice < 83 && health_potions > 0) {

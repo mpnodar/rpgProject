@@ -6,11 +6,13 @@ using namespace std;
 
 int battle (player &you) {
 
+    you.setStamina(80);
+
     int enemyRandomizer = getRandomInt(1,13);
     
     bool loop = true;
 
-    // Goblin fight
+    // Goblin fight 
 
     if (enemyRandomizer <= 5) {
 

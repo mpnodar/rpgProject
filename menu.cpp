@@ -48,6 +48,7 @@ int menu (player &you) {
         
         case 2: 
             battle(you);
+            you.setStamina(80);
             break;
 
         case 3: 
