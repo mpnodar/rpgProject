@@ -11,6 +11,8 @@ int getRandomInt(int min, int max) {
     return distrib(gen);
 }
 
+
+
 class character {
 
     protected:
@@ -25,6 +27,7 @@ class character {
     int stamina_potions;
     int magicka_potions;
     int maxStamina = 80;
+    int maxHealth = 100;
 
 
     public:
@@ -187,7 +190,7 @@ class enemy : public character {
         }
         else if (choice <= 66 && choice > 33 && stamina == 0) {
             cout << "   The " << name << " tries to defend but is out of stamina.";
-            action = "restoreStamina";
+            action = "failedDefense";
         }
 
         if (choice >= 67 && choice < 83 && health_potions > 0) {
@@ -295,6 +298,7 @@ class player : public character {
 
     protected:
 
+    Stack inventory;
     int gold = 250;
     int xp = 0;
     int level = 1;
@@ -363,17 +367,21 @@ class player : public character {
 
     if (choice == 3 && health_potions > 0) {
         restoreHealth();
+        action = "health";
         setHealthPotions(health_potions - 1);
         cout << "   You restore health." << endl;
     } else if (choice == 3 && health_potions == 0) {
+        action = "health";
         cout << "   You try to restore health but you are out of health potions." << endl;
     }
 
     if (choice == 4 && stamina_potions > 0) {
         cout << "   You restore stamina." << endl;
+        action = "stamina";
         restoreStamina();
         setStaminaPotions(stamina_potions - 1);
     } else if (choice == 4 && stamina_potions == 0) {
+        action = "health";
         cout << "   You try to restore stamina but you are out of stamina potions." << endl;
     }
 
