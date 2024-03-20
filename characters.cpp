@@ -17,7 +17,6 @@ class character {
 
     string action;
     string name;
-    Stack inventory;
     int health;
     int magicka;
     int stamina;
@@ -25,6 +24,7 @@ class character {
     int health_potions;
     int stamina_potions;
     int magicka_potions;
+    int maxStamina = 80;
 
 
     public:
@@ -171,6 +171,8 @@ class enemy : public character {
 
     }
 
+
+
     void selectAttack () {
         int choice = getRandomInt(1, 100);
 
@@ -234,7 +236,7 @@ class goblin : public enemy {
 
     public:
 
-    goblin () : enemy("Goblin", 100, 30, 60, 18, 3, 3, 3) {};
+    goblin () : enemy("Goblin", 60, 30, 60, 18, 3, 3, 3) {};
 
     void attack () {
         cout << "   The goblin attacks." << endl;
@@ -287,14 +289,46 @@ class wraith : public enemy {
     }
 };
 
+
+
 class player : public character {
 
-    public:
+    protected:
 
     int gold = 250;
     int xp = 0;
+    int level = 1;
+    int xpRequired = 100;
     
+    public:
+
     player () : character ("You", 100, 80, 80, 25, 3, 3, 3) {};
+
+    int getXpRequired () {
+        return xpRequired;
+    } 
+
+    void addXP (int _xp) {
+        xp += _xp;
+    }
+
+    int getXP () {
+        return xp;
+    }
+
+    int getLevel() {
+        return level;
+    }
+
+    void levelUp () {
+        level++;
+        attackDamage += 10;
+        health += 20;
+        stamina += 20;
+        magicka += 20;
+        xp = 0;
+        xpRequired += 20;
+    }
 
     virtual void attack () {
         cout << "   You attack." << endl;

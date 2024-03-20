@@ -260,6 +260,36 @@ public:
 
 }
 
+void inventory (Stack _inventory) {
+        int input;
+        _inventory.print();
+
+        cout << "What would you like to do?" << endl;
+
+        do {
+
+        cout << "1. Equip Item\n2. Drop Item\n3. Back" << endl;
+        cin >> input;
+
+        switch (input) {
+            case 1: 
+            cout << "No, you dumbass." << endl;
+            break;
+
+            case 2:
+            _inventory.dropItem();
+            break;
+
+            case 3:
+            cout << "See ya later, idiot." << endl;
+            break;
+        }
+
+        }
+
+        while (input != 3);
+}
+
 };
 
 void createInventory (Stack& _Inventory) {
@@ -283,38 +313,5 @@ void createInventory (Stack& _Inventory) {
     _Inventory.push(node2);
     _Inventory.push(node3);
     _Inventory.push(node4);
-
-}
-
-void inventory (Stack& _inventory) {
-    int input;
-    _inventory.print();
-
-    cout << "What would you like to do?" << endl;
-
-    do {
-
-    cout << "1. Equip Item\n2. Drop Item\n3. Back" << endl;
-    cin >> input;
-
-    switch (input) {
-        case 1: 
-        cout << "No, you dumbass." << endl;
-        break;
-
-        case 2:
-        _inventory.dropItem();
-        break;
-
-        case 3:
-        cout << "See ya later, idiot." << endl;
-        break;
-    }
-
-    }
-
-    while (input != 3);
-
-
 
 }

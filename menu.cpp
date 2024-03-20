@@ -1,7 +1,6 @@
 #include <iostream>
-#include "C:\Users\mpnod\C++ Files\.vscode\RPG-Project\battleSequence.cpp"
-#include "C:\Users\mpnod\C++ Files\.vscode\RPG-Project\inventory.cpp"
-#include "C:\Users\mpnod\C++ Files\.vscode\RPG-Project\shop.cpp"
+#include "battleSequence.cpp"
+#include "shop.cpp"
 
 using namespace std;
 
@@ -27,8 +26,6 @@ void quitGame () {
 
 int menu (player &you) {
 
-    Stack newInventory;
-    createInventory(newInventory);
     int input;
 
     do {  
@@ -48,11 +45,10 @@ int menu (player &you) {
         
         case 2: 
             battle(you);
-            you.setStamina(80);
             break;
 
         case 3: 
-            inventory(newInventory);
+            // inventory();
             break;
 
         case 4: 

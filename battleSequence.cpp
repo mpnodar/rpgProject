@@ -126,8 +126,14 @@ int battle (player &you) {
             you.displayData();
             cout << "\n\n";
             cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.xp += 75;
-            cout << "75xp Earned!\nTotal xp: " << you.xp << endl;
+            you.addXP(75);
+            cout << "75xp Earned!" << endl;
+            if (you.getXP() >= 100) {
+            you.levelUp();
+            }
+            cout << "Total XP: " << you.getXP() << endl;
+            cout << "Level: " << you.getLevel() << endl;
+            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
             break;
         }
 
@@ -267,8 +273,13 @@ int battle (player &you) {
             you.displayData();
             cout << "\n\n";
             cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.xp += 150;
-            cout << "150xp Earned!\nTotal xp: " << you.xp << endl;
+            you.addXP(150);
+            cout << "150xp Earned!\nTotal xp: " << you.getXP() << endl;
+            if (you.getXP() > 100) {
+                you.levelUp();
+            }
+            cout << "Level: " << you.getLevel() << endl;
+            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
             break;
         }
 
@@ -406,8 +417,13 @@ int battle (player &you) {
             you.displayData();
             cout << "\n\n";
             cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.xp += 300;
-            cout << "300xp Earned!\nTotal xp: " << you.xp << endl;
+            you.addXP(300);
+            cout << "300xp Earned!\nTotal xp: " << you.getXP() << endl;
+            if (you.getXP() >= you.getXpRequired()) {
+            you.levelUp();
+            }
+            cout << "Level: " << you.getLevel() << endl;
+            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
             break;
         }
 
@@ -438,6 +454,8 @@ int battle (player &you) {
     }
 
     }
+
+
 
     return 0;
 }
