@@ -1,394 +1,370 @@
 #include <iostream>
 #include <random>
-#include "inventory.cpp"
+#include "characters.h"
 
 using namespace std;
 
-int getRandomInt(int min, int max) {
-    random_device rd;
-    mt19937 gen(rd()); 
-    uniform_int_distribution<> distrib(min, max);
-    return distrib(gen);
+
+character::character() {
+    name = "No Name";
+    level = 0;
+    maxHealth = (40 + (level * 5));
+    maxStamina = (50 + (level * 5));
+    maxMagicka = (30 + (level * 5));
+    attackDamage = 5 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+    currentXp = 0;
+    requiredXp = 100 + level * 20;
+    attackValue = false;
+    defendValue = false;
+    healthPotions = 3;
+}
+
+character::character(string _name, int _level) {
+    name = _name;
+    level = _level;
+    maxHealth = (40 + (level * 5));
+    maxStamina = (50 + (level * 5));
+    maxMagicka = (30 + (level * 5));
+    attackDamage = 5 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+    currentXp = 0;
+    requiredXp = 100 + level * 20;
+    attackValue = false;
+    defendValue = false;
+    healthPotions = 3;
+}
+
+enemy::enemy() {
+    name = "Enemy";
+    level = 0;
+
+}
+
+enemy::enemy(int _level) {
+    name = "Enemy";
+    level = _level;
+
+}
+
+goblin::goblin() : enemy() {
+    name = "Goblin";
+    level = 3;
+    maxHealth = (30 + (level * 5));
+    maxStamina = (30 + (level * 5));
+    maxMagicka = (20 + (level * 5));
+    attackDamage = 5 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+goblin::goblin(int _level) : enemy() {
+    name = "Goblin";
+    level = _level;
+    maxHealth = (30 + (level * 5));
+    maxStamina = (30 + (level * 5));
+    maxMagicka = (20 + (level * 5));
+    attackDamage = 5 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+orc::orc() {
+    name = "Orc";
+    level = 10;
+    maxHealth = (50 + (level * 5));
+    maxStamina = (50 + (level * 5));
+    maxMagicka = (30 + (level * 5));
+    attackDamage = 15 + (level * 2);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+orc::orc(int _level) {
+    name = "Orc";
+    level = _level;
+    maxHealth = (50 + (level * 5));
+    maxStamina = (50 + (level * 5));
+    maxMagicka = (30 + (level * 5));
+    attackDamage = 15 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+wraith::wraith() {
+    name = "Wraith";
+    level = 20;
+    maxHealth = (70 + (level * 5));
+    maxStamina = (70 + (level * 5));
+    maxMagicka = (100 + (level * 5));
+    attackDamage = 25 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+wraith::wraith(int _level) {
+    name = "Wraith";
+    level = _level;
+    maxHealth = (70 + (level * 5));
+    maxStamina = (70 + (level * 5));
+    maxMagicka = (100 + (level * 5));
+    attackDamage = 25 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+
+player::player() {
+    name = "Player";
+    level = 0;
+}
+
+player::player(int _level, string _name) {
+    name = _name;
+    level = _level;
+    maxHealth = (50 + (level * 5));
+    maxStamina = (50 + (level * 5));
+    maxMagicka = (30 + (level * 5));
+    attackDamage = 5 + (level * 3);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
 }
 
 
 
-class character {
-
-    protected:
-
-    string action;
-    string name;
-    int health;
-    int magicka;
-    int stamina;
-    int attackDamage;
-    int health_potions;
-    int stamina_potions;
-    int magicka_potions;
-    int maxStamina = 80;
-    int maxHealth = 100;
 
 
-    public:
+int character::getHealth() {
+    return currentHealth;
+}
 
-    character () {
-        health = 0;
-        magicka = 0;
-        stamina = 0;
-        attackDamage = 0;
-    }
+void character::setHealth(int _health) {
+    currentHealth = _health;
+}
 
-    character (string _name, int _health, int _magicka, int _stamina, int _attackDamage, int _health_potions, int _magicka_potions, int _stamina_potions) {
-        name = _name;
-        health = _health;
-        magicka = _magicka;
-        stamina = _stamina;
-        attackDamage = _attackDamage;
-        health_potions = _health_potions;
-        magicka_potions = _magicka_potions;
-        stamina_potions = _stamina_potions;
-    }
+int character::getAttackDamage() {
+    return attackDamage;
+}
 
-    void setAction (string _action) {
-        action = _action;
-    }
+void character::attack(character& defender) {
 
-    void selectAttack () {
-        int choice;
+    setDefend(false);
 
-        if (choice == 1) {
-            attack();
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 5);
+    int criticalHit = distrib(gen);
+
+    if (( (defender.getDefend()) != true) || (defender.getStamina() <= 0) ) {
+
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks!\n" << endl;
+            // cout << "----------------------\n\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage());
         }
-
-        else if (choice == 2) {
-            defend();
-        }
-
-        else if (choice == 3) {
-            run();
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks!\n" << endl;
+            // cout << "----------------------\n\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 2);
         }
     }
-
-    int getHealth() {
-        return health;
+    else if ( (defender.getDefend() == true) && (defender.getStamina() > 0) ) {
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks, but " << defender.getName() << " defends!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage());
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks! " << defender.getName() << " defends!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
+        }
     }
+}
 
-    void setHealth(int _health) {
-        health = _health;
-    }
-
-    int getStamina () {
-        return stamina;
-    }
-
-    void setStamina (int _stamina) {
-        stamina = _stamina;
-    }
-
-    int getAttackDamage () {
-        return attackDamage;
-    }
-
-    int getStaminaPotions () {
-        return stamina_potions;
-    }
-    void setStaminaPotions (int _stamina_potions) {
-        stamina_potions = _stamina_potions;
-    }
-
-    int getHealthPotions () {
-        return health_potions;
-    }
-    void setHealthPotions (int _health_potions) {
-        health_potions = _health_potions;
-    }
-
-    int getMagickaPotions () {
-        return magicka_potions;
-    }
-    void setMagickaPotions (int _magicka_potions) {
-        magicka_potions = _magicka_potions;
-    }
-
-    virtual void attack () {}
-
-    virtual void defend () {}
-
-    virtual void run () {}
-
-    virtual void restoreHealth () {
-        health += 25;
-    }
-
-    virtual void restoreMagicka () {
-        magicka += 25;
-    }
-
-    virtual void restoreStamina () {
-        stamina += 25;
-    }
-
-    string getAction () {
-        return action;
-    }
-
-    string getName() {
-        return name;
-    }
-
-    void displayData () {
-        cout << "-------------------------" << endl;
-        cout << name << ": " << endl;
-        cout << "Health: " << health << endl;
-        cout << "Magicka: " << magicka << endl;
-        cout << "Stamina: " << stamina << endl;
-        cout << "-------------------------" << endl;
-    }
-
-};
-
-class enemy : public character {
-
-    bool flee = false;
-
-    public:
+/* void player::attack(character& defender) {
     
-    enemy () {
-        name = "Unknown Enemy";
-        health = 0;
-        magicka = 0;
-        stamina = 0;
-        attackDamage = 0;
-    }
+    setDefend(false);
 
-    enemy (string _name, int _health, int _magicka, int _stamina, int _attackDamage, int _health_potions, int _magicka_potions, int _stamina_potions) {
-        name = _name;
-        health = _health;
-        magicka = _magicka;
-        stamina = _stamina;
-        attackDamage = _attackDamage;
-        health_potions = _health_potions;
-        magicka_potions = _magicka_potions;
-        stamina_potions = _stamina_potions;
+    if ((defender.getDefend()) != true) {
 
-    }
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> distrib(1, 5);
+        int criticalHit = distrib(gen);
 
-
-
-    void selectAttack () {
-        int choice = getRandomInt(1, 100);
-
-        if (choice <= 33) {
-            attack();
-            action = "attack";
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks!\n\n" << endl;
+            cout << "----------------------\n\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage());
         }
-
-        if (choice <= 66 && choice > 33 && stamina > 0) {
-            defend();
-            action = "defend";
-        }
-        else if (choice <= 66 && choice > 33 && stamina == 0) {
-            cout << "   The " << name << " tries to defend but is out of stamina.";
-            action = "failedDefense";
-        }
-
-        if (choice >= 67 && choice < 83 && health_potions > 0) {
-            cout << "   " << name << " heals." << endl;
-            restoreHealth();
-            action = "restoreHealth";
-            health_potions--;
-        }
-        else if (choice >= 67 && choice <= 83 && health_potions == 0) {
-            choice = choice - 10 * (getRandomInt(1,6));
-        }
-
-        
-        // Restore Stamina
-
-        if (choice >= 84 && choice <= 97 && stamina_potions > 0) {
-            cout << "   " << name << " restores stamina." << endl;
-            restoreStamina();
-            action = "restoreStamina";
-            stamina_potions--;
-        }
-        else if (choice >= 84 && choice <= 97 && stamina_potions == 0) {
-            choice = choice - 10 * (getRandomInt(1,8));
-        }
-
-
-
-        if (choice >= 98 && choice <= 100) {
-            run();
-            action = "run";
-            setFlee(true);
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks!\n\n" << endl;
+            cout << "----------------------\n\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 2);
         }
     }
 
-    bool getFlee () {
-        return flee;
+    else if (defender.getDefend() == true) {
+        cout << name << " attacks!" << endl;
     }
 
-    void setFlee (bool _flee) {
-        flee = _flee;
+
+
+} */
+
+bool character::getDefend() {
+    return defendValue;
+}
+void character::setDefend(bool _defend) {
+    defendValue = _defend;
+}
+
+bool character::getAttack() {
+    return attackValue;
+}
+void character::setAttack(bool _attack) {
+    attackValue = _attack;
+}
+
+void character::defend() {
+
+    if (getStamina() > 0) {
+        cout << getName() << " defends!\n" << endl;
+        setDefend(true);
     }
 
-};
-
-class goblin : public enemy {
-
-    public:
-
-    goblin () : enemy("Goblin", 60, 30, 60, 18, 3, 3, 3) {};
-
-    void attack () {
-        cout << "   The goblin attacks." << endl;
+    else if (getStamina() == 0) {
+        cout << getName() << " tries to defend but is out of stamina!\n" << endl;
     }
+}
 
-    void run () {
-        cout << "   The goblin runs away." << endl;
-    }
-
-    void defend () {
-        cout << "   The goblin defends." << endl;
-    }
-};
-
-class orc : public enemy {
-
-    public:
-
-    orc () : enemy("Orc", 150, 50, 125, 30, 3, 3, 3) {};
-
-    void attack () {
-        cout << "   The orc attacks." << endl;
-    }
-
-    void run () {
-        cout << "   The orc runs away." << endl;
-    }
-
-    void defend () {
-        cout << "   The orc defends." << endl;
-    }
-};
-
-class wraith : public enemy {
-
-    public:
-
-    wraith () : enemy("Wraith", 200, 250, 250, 45, 3, 3, 3) {};
-
-    void attack () {
-        cout << "   The wraith attacks." << endl;
-    }
-
-    void run () {
-        cout << "   The wraith flees." << endl;
-    }
-
-    void defend () {
-        cout << "   The wraith defends." << endl;
-    }
-};
+void character::run() {
+    cout << "\nRun Away" << endl;
+}
 
 
+string character::getName() {
+    return name;
+}
 
-class player : public character {
+int character::getHealthPotions() {
+    return healthPotions;
+}
 
-    protected:
+void character::setHealthPotions(int _healthPotions) {
+    healthPotions = _healthPotions;
+}
 
-    Stack inventory;
-    int gold = 250;
-    int xp = 0;
-    int level = 1;
-    int xpRequired = 100;
-    
-    public:
+int character::getMagickaPotions() {
+    return currentMagicka;
+}
 
-    player () : character ("You", 100, 80, 80, 25, 3, 3, 3) {};
+int character::getStamina() {
+    return currentStamina;
+}
 
-    int getXpRequired () {
-        return xpRequired;
-    } 
+int character::getStaminaPotions() {
+    return currentStamina;
+}
 
-    void addXP (int _xp) {
-        xp += _xp;
-    }
+void character::setStamina(int _stamina) {
+    currentStamina = _stamina;
+}
 
-    int getXP () {
-        return xp;
-    }
+void character::restoreHealth(int _health) {
+    setHealthPotions(getHealthPotions() - 1);
+    setDefend(false);
+    currentHealth += _health;
+}
 
-    int getLevel() {
-        return level;
-    }
+void enemy::restoreHealth(int _health) {
+    setDefend(false);
+    setHealthPotions(getHealthPotions() - 1);
+    currentHealth += _health;
+    cout << "\n" << name << " restores health.\n" << endl;
+    cout << getHealthPotions();
+}
 
-    void levelUp () {
-        level++;
-        attackDamage += 10;
-        health += 20;
-        stamina += 20;
-        magicka += 20;
-        xp = 0;
-        xpRequired += 20;
-    }
+void character::restoreMagicka(int _magicka) {
+    setDefend(false);
+    currentMagicka += _magicka;
+}
 
-    virtual void attack () {
-        cout << "   You attack." << endl;
-        action = "attack";
-    }
+void character::restoreStamina(int _stamina) {
+    setDefend(false);
+    currentStamina += _stamina;
+}
 
-    virtual void defend () {
-        cout << "   You defend." << endl;
-        action = "defend";
-    }
+int character::getCurrentXP() {
+    return currentXp;
+}
+void character::setCurrentXP(int newXp) {
+    currentXp = newXp;
+}
 
-    virtual void run () {
-        cout << "   You run away.\n\nXP Earned: 0\nTotal XP: " << xp << endl;
-        action = "run";
-    }
+int character::getRequiredXP() {
+    return requiredXp;
+}
+void character::setRequiredXP(int newXp) {
+    requiredXp = newXp;
+}
 
-    void selectAttack() {
-    int choice;
-    cout << "What would you like to do?\n\n1. Attack\n2. Defend\n3. Use Health Potion (" << getHealthPotions() << " remaining)\n4. Use Stamina Potion (" << stamina_potions << " remaining)\n5. Run" << endl;
-    cin >> choice;
-    cout << "\n\n\n";
+int character::getLevel() {
+    return level;
+}
 
-    if (choice == 1) {
-        attack();
-    }
+void character::levelUp() {
+    level += 1;
+    currentXp -= requiredXp;
+    requiredXp += 20;
+    maxHealth += 5;
+    maxStamina += 5;
+    maxMagicka += 5;
+    attackDamage += 5;
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
 
-    if (choice == 2 && stamina != 0) {
-        defend();
-    } else if (choice == 2 && stamina == 0) {
-        cout << "   You try to defend but you are out of stamina." << endl;
-    }
-
-    if (choice == 3 && health_potions > 0) {
-        restoreHealth();
-        action = "health";
-        setHealthPotions(health_potions - 1);
-        cout << "   You restore health." << endl;
-    } else if (choice == 3 && health_potions == 0) {
-        action = "health";
-        cout << "   You try to restore health but you are out of health potions." << endl;
-    }
-
-    if (choice == 4 && stamina_potions > 0) {
-        cout << "   You restore stamina." << endl;
-        action = "stamina";
-        restoreStamina();
-        setStaminaPotions(stamina_potions - 1);
-    } else if (choice == 4 && stamina_potions == 0) {
-        action = "health";
-        cout << "   You try to restore stamina but you are out of stamina potions." << endl;
-    }
-
-    if (choice == 5) {
-        run();
+void character::checkLevel() {
+    if (getRequiredXP() <= getCurrentXP()) {
+        levelUp();
     }
 }
 
 
-};
+
+
+
+
+void character::displayData() {
+    cout << "----------------------" << endl;
+    cout << name << "\nLevel: " << level << endl;
+    cout << "  - - - - - - - - - - " << endl;
+    cout << "Health: " << currentHealth << "\nStamina: " << currentStamina << "\nMagicka: " << currentMagicka << endl;
+    cout << "----------------------" << endl;
+}
+
+void character::displayFullData() {
+    cout << "----------------------" << endl;
+    cout << name << endl;
+    cout << "Level: " << level << endl << endl;
+    cout << "Current XP: " << currentXp << endl;
+    cout << "XP Required for Next Level: " << requiredXp << endl;
+
+    if (currentXp < requiredXp) { cout << "XP Until Next Level: " << requiredXp - currentXp << "\n" << endl; }
+    else { cout << "Ready to Level Up" << "\n" << endl; }
+
+    cout << "Health: " << currentHealth << "\nStamina: " << currentStamina << "\nMagicka: " << currentMagicka << "\nAttack Damage: " << attackDamage << endl;
+    cout << "----------------------" << endl;
+}

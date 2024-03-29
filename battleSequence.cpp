@@ -1,461 +1,231 @@
+#include "characters.cpp"
 #include <iostream>
 #include <random>
-#include "characters.cpp"
 
 using namespace std;
 
-int battle (player &you) {
 
-    you.setStamina(80);
 
-    int enemyRandomizer = getRandomInt(1,13);
+// Random Functions
+
+int randint(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> distrib(min, max);
+    return distrib(gen);
+}
+int randintLow(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Triangular distribution
+    std::uniform_int_distribution<> distrib(min, max);
+    int lower = distrib(gen);
+    int upper = distrib(gen);
+    return lower < upper ? lower : upper;
+}
+int randintHigh(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Triangular distribution biased towards higher values
+    std::uniform_int_distribution<> distrib(min, max);
+    int lower = distrib(gen);
+    int upper = distrib(gen);
+    return lower > upper ? lower : upper;
+}
+int randintNear(int target, int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    int mean = target;
+    int stddev = (max - min) / 3;
+    stddev = stddev < 1 ? 1 : stddev;
+    std::normal_distribution<> distrib(mean, stddev);
+    int result;
+    do {
+        result = distrib(gen);
+    } while (result < min || result > max);
+    return result;
+}
+
+
+
+
+
+
+// Display Battle Options
+
+int displayBattleOptions() {
+
+    int choice;
+
+    cout << "\n\n1. Attack" << endl;
+    cout << "2. Defend" << endl;
+    cout << "3. Open Inventory" << endl;
+    cout << "4. Run Away\n\n" << endl;
+    cout << "----------------------\n" << endl;
+
+    cin >> choice;
+    return choice;
+
+}
+
+
+
+
+// General Battle Structure
+
+void battle(player& _player, enemy& _enemy) {
+
+
+    // Battle Loop
+
+    while (_player.getHealth() > 0 && _enemy.getHealth() > 0) {
+
+        // Initial Display Data
+
+            _enemy.displayData();
+            _player.displayData();
+
+            
+            int enemyChoice = randint(1, 3);
+
+            if (enemyChoice == 2) {
+                _enemy.setDefend(true);
+            }
+            else {
+                _enemy.setDefend(false);
+            }
+
+
+        // Player Select Attack
+
+            switch (displayBattleOptions()) {
+                case 1:
+                    _player.attack(_enemy);
+                    break;
+                case 2:
+                    _player.defend();
+                    break;
+                case 3:
+                    _player.restoreHealth(5);
+                    break;
+                case 4:
+                    cout << "Run";
+                    break;
+            }
+
+
+        // Enemy Select Attack
+
+            if (_enemy.getHealth() > 0) {
+                switch (enemyChoice) {
+                    case 1:
+                        _enemy.attack(_player);
+                        break;
+                    case 2:
+                        _enemy.defend();
+                        break;
+                    case 3:
+                        _enemy.restoreHealth(5);
+                        break;
+                    case 4:
+                        cout << "\nRun" << endl;
+                        break;
+                    }
+            }
+
+
+
+
+        // Set Floor Limits on Attribute Values
+
+            if (_player.getHealth() <= 0) {
+                _player.setHealth(0);
+            }
+            if (_enemy.getHealth() <= 0) {
+                _enemy.setHealth(0);
+            }
+
+            if (_player.getStamina() <= 0) {
+                _player.setStamina(0);
+            }
+            if (_enemy.getStamina() <= 0) {
+                _enemy.setStamina(0);
+            }
+
+
+
+
+    }
+
+
+
+
+
+    // Post-battle Display Data
+
+        _enemy.displayData();
+        _player.displayData();
+
+
+
+
+
+    // Check Who Has Died
+
+        if (_player.getHealth() == 0) {
+            cout << "\nYou have died." << endl;
+        }
+
+        else if (_enemy.getHealth() == 0) {
+            cout << "You have defeated the " << _enemy.getName() << "!" << endl;
+
+
+            _player.setCurrentXP(_player.getCurrentXP() + (20 * _enemy.getLevel()));
+            cout << "XP Earned: " << (20 * _enemy.getLevel()) << endl;
+            
+            while (_player.getCurrentXP() >= _player.getRequiredXP()) {
+                _player.checkLevel();
+            }
+
+            _player.displayFullData();
+
+        }
+
+}
+
+
+
+
+
+
+
+// Full Battle with Enemy Randomization
+
+void randomBattle(player& _player) {
+
+    int randLevel = randintNear(_player.getLevel(), 1, (_player.getLevel() + 20));
+
+    goblin nilbog(randLevel);
+    orc bum(randLevel);
+    wraith dumbass(randLevel);
+
+    int randEnemy = randint(1, 100);
     
-    bool loop = true;
-
-    // Goblin fight 
-
-    if (enemyRandomizer <= 5) {
-
-    goblin sareReal;
-
-    while (true) {
-
-        cout << "\n\n";
-
-        sareReal.displayData();
-
-        cout << "\n\n";
-
-        you.displayData();
-
-        cout << "\n\n";
-
-        you.selectAttack();
-
-        cout << "\n";
-
-        if (you.getAction() != "run") {
-            sareReal.selectAttack();
-        }
-
-    // Player Attack / Enemy Damage
-
-    if (you.getAction() == "attack" && sareReal.getAction() != "defend") {
-            sareReal.setHealth(sareReal.getHealth() - you.getAttackDamage());
-        }
-
-    // Enemy Attack / Player Damage
-
-        if (sareReal.getAction() == "attack" && you.getAction() != "defend") {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Enemy Attack / Player Defend
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() > 0) {
-            you.setStamina( (you.getStamina() - sareReal.getAttackDamage()) );
-        }
-
-    // Player Attack / Enemy Defend
-
-        if (you.getAction() == "attack" && sareReal.getAction() == "defend") {
-            sareReal.setStamina( (sareReal.getStamina() - you.getAttackDamage()) );
-        }
-
-    // Enemy Attack / Player Defend but No Stamina
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() <= 0) {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Stamina Lower Limit - Player
-
-        if (you.getStamina() < 0) {
-            you.setStamina(0);
-        }
-
-    // Health Lower Limit - Player
-
-        if (you.getHealth() < 0) {
-            you.setHealth(0);
-        }
-
-    // Stamina Lower Limit - Enemy
-
-        if (sareReal.getStamina() < 0) {
-            sareReal.setStamina(0);
-        }
-
-    // Health Lower Limit - Enemy
-
-        if (sareReal.getHealth() < 0) {
-            sareReal.setHealth(0);
-        }
-
-    // Health Upper Limit - Enemy
-
-        if (sareReal.getHealth() > 60) {
-            sareReal.setHealth(60);
-        }
-
-    // Stamina Upper Limit - Enemy
-
-        if (sareReal.getStamina() > 60) {
-            sareReal.setStamina(60);
-        }
-
-    // Health Upper Limit - Player
-
-        if (you.getHealth() > 100) {
-            you.setHealth(100);
-        }
-
-    // Stamina Upper Limit - Player
-
-        if (you.getStamina() > 80) {
-            you.setStamina(80);
-        }
-
-
-    // Enemy Defeated
-
-        if (sareReal.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.addXP(75);
-            cout << "75xp Earned!" << endl;
-            if (you.getXP() >= 100) {
-            you.levelUp();
-            }
-            cout << "Total XP: " << you.getXP() << endl;
-            cout << "Level: " << you.getLevel() << endl;
-            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
-            break;
-        }
-
-    // Player defeated
-
-        if (you.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have died." << endl;
-            you.setAction("dead");
-            break;
-        }
-
-    // Flee end-battle
-
-        if (sareReal.getFlee() == true) {
-            break;
-        }
-
-        if (you.getAction() == "run") {
-            break;
-        }
-
+    if (randEnemy <= 50) {
+        battle(_player, nilbog);
     }
 
+    else if (randEnemy > 50 && randEnemy <= 90) {
+        battle(_player, bum);
     }
 
-    // Orc Fight
-
-    else if (enemyRandomizer > 5 && enemyRandomizer <= 10) {
-
-    orc sareReal;
-
-    while (true) {
-
-        cout << "\n\n";
-
-        sareReal.displayData();
-
-        cout << "\n\n";
-
-        you.displayData();
-
-        cout << "\n\n";
-
-        you.selectAttack();
-
-        cout << "\n";
-
-        if (you.getAction() != "run") {
-            sareReal.selectAttack();
-        }
-
-        if (you.getAction() == "attack" && sareReal.getAction() != "defend") {
-            sareReal.setHealth(sareReal.getHealth() - you.getAttackDamage());
-        }
-
-        if (sareReal.getAction() == "attack" && you.getAction() != "defend") {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Enemy Attack / Player Defend
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() > 0) {
-            you.setStamina( (you.getStamina() - sareReal.getAttackDamage()) );
-        }
-
-    // Player Attack / Enemy Defend
-
-        if (you.getAction() == "attack" && sareReal.getAction() == "defend") {
-            sareReal.setStamina( (sareReal.getStamina() - you.getAttackDamage()) );
-        }
-
-    // Enemy Attack / Player Defend but No Stamina
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() <= 0) {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Stamina Lower Limit - Player
-
-        if (you.getStamina() < 0) {
-            you.setStamina(0);
-        }
-
-    // Health Lower Limit - Player
-
-        if (you.getHealth() < 0) {
-            you.setHealth(0);
-        }
-
-    // Stamina Lower Limit - Enemy
-
-        if (sareReal.getStamina() < 0) {
-            sareReal.setStamina(0);
-        }
-
-    // Health Lower Limit - Enemy
-
-        if (sareReal.getHealth() < 0) {
-            sareReal.setHealth(0);
-        }
-
-    // Health Upper Limit - Enemy
-
-        if (sareReal.getHealth() > 150) {
-            sareReal.setHealth(150);
-        }
-
-    // Stamina Upper Limit - Enemy
-
-        if (sareReal.getStamina() > 125) {
-            sareReal.setStamina(125);
-        }
-
-    // Health Upper Limit - Player
-
-        if (you.getHealth() > 100) {
-            you.setHealth(100);
-        }
-
-    // Stamina Upper Limit - Player
-
-        if (you.getStamina() > 80) {
-            you.setStamina(80);
-        }
-
-    // Enemy defeated
-
-        if (sareReal.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.addXP(150);
-            cout << "150xp Earned!\nTotal xp: " << you.getXP() << endl;
-            if (you.getXP() > 100) {
-                you.levelUp();
-            }
-            cout << "Level: " << you.getLevel() << endl;
-            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
-            break;
-        }
-
-    // Player defeated
-
-        if (you.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have died." << endl;
-            break;
-        }
-
-        if (sareReal.getFlee() == true) {
-            break;
-        }
-
-        if (you.getAction() == "run") {
-            break;
-        }
-
+    else if (randEnemy > 90) {
+        battle(_player, dumbass);
     }
-
-    }
-
-
-    // Wraith Fight
-
-    else if (enemyRandomizer > 10 && enemyRandomizer <= 13) {
-
-    wraith sareReal;
-
-    while (true) {
-
-        cout << "\n\n";
-
-        sareReal.displayData();
-
-        cout << "\n\n";
-
-        you.displayData();
-
-        cout << "\n\n";
-
-        you.selectAttack();
-
-        cout << "\n";
-
-        if (you.getAction() != "run") {
-            sareReal.selectAttack();
-        }
-
-        if (you.getAction() == "attack" && sareReal.getAction() != "defend") {
-            sareReal.setHealth(sareReal.getHealth() - you.getAttackDamage());
-        }
-
-        if (sareReal.getAction() == "attack" && you.getAction() != "defend") {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Enemy Attack / Player Defend
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() > 0) {
-            you.setStamina( (you.getStamina() - sareReal.getAttackDamage()) );
-        }
-
-    // Player Attack / Enemy Defend
-
-        if (you.getAction() == "attack" && sareReal.getAction() == "defend") {
-            sareReal.setStamina( (sareReal.getStamina() - you.getAttackDamage()) );
-        }
-
-    // Enemy Attack / Player Defend but No Stamina
-
-        if (sareReal.getAction() == "attack" && you.getAction() == "defend" && you.getStamina() <= 0) {
-            you.setHealth(you.getHealth() - sareReal.getAttackDamage());
-        }
-
-    // Stamina Lower Limit - Player
-
-        if (you.getStamina() < 0) {
-            you.setStamina(0);
-        }
-
-    // Health Lower Limit - Player
-
-        if (you.getHealth() < 0) {
-            you.setHealth(0);
-        }
-
-    // Stamina Lower Limit - Enemy
-
-        if (sareReal.getStamina() < 0) {
-            sareReal.setStamina(0);
-        }
-
-    // Health Lower Limit - Enemy
-
-        if (sareReal.getHealth() < 0) {
-            sareReal.setHealth(0);
-        }
-
-    // Health Upper Limit - Enemy
-
-        if (sareReal.getHealth() > 200) {
-            sareReal.setHealth(200);
-        }
-
-    // Stamina Upper Limit - Enemy
-
-        if (sareReal.getStamina() > 250) {
-            sareReal.setStamina(250);
-        }
-
-    // Health Upper Limit - Player
-
-        if (you.getHealth() > 100) {
-            you.setHealth(100);
-        }
-
-    // Stamina Upper Limit - Player
-
-        if (you.getStamina() > 80) {
-            you.setStamina(80);
-        }
-
-    // Enemy defeated
-
-        if (sareReal.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have defeated the " << sareReal.getName() << "!\n\n " << endl;
-            you.addXP(300);
-            cout << "300xp Earned!\nTotal xp: " << you.getXP() << endl;
-            if (you.getXP() >= you.getXpRequired()) {
-            you.levelUp();
-            }
-            cout << "Level: " << you.getLevel() << endl;
-            cout << "XP Required for Next Level: " << you.getXpRequired() << endl;
-            break;
-        }
-
-    // Player defeated
-
-        if (you.getHealth() <= 0) {
-            cout << "\n\n";
-            sareReal.displayData();
-            cout << "\n\n";
-            you.displayData();
-            cout << "\n\n";
-            cout << "\n\nYou have died." << endl;
-            break;
-        }
-
-    // Enemy Flee        
-
-        if (sareReal.getFlee() == true) {
-            break;
-        }
-
-    // Player Flee
-
-        if (you.getAction() == "run") {
-            break;
-        }
-
-    }
-
-    }
+    
 
 
-
-    return 0;
 }
