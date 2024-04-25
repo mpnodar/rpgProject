@@ -1,4 +1,5 @@
 #include "characters.cpp"
+#include "shop.cpp"
 #include <iostream>
 #include <random>
 
@@ -78,13 +79,17 @@ int displayBattleOptions() {
 
 void battle(player& _player, enemy& _enemy) {
 
+    // Set Fighting Status to True
+
+    _player.setFightingStatus(true);
 
     // Battle Loop
 
-    while (_player.getHealth() > 0 && _enemy.getHealth() > 0) {
+    while (_player.getHealth() > 0 && _enemy.getHealth() > 0 && _player.getFightingStatus()) {
 
         // Initial Display Data
-
+            
+            
             _enemy.displayData();
             _player.displayData();
 
@@ -99,7 +104,7 @@ void battle(player& _player, enemy& _enemy) {
             }
 
 
-        // Player Select Attack
+        // Player Select Action
 
             switch (displayBattleOptions()) {
                 case 1:
@@ -109,17 +114,17 @@ void battle(player& _player, enemy& _enemy) {
                     _player.defend();
                     break;
                 case 3:
-                    _player.restoreHealth(5);
+                    _player.manageInventory();
                     break;
                 case 4:
-                    cout << "Run";
+                    _player.run();                   
                     break;
             }
 
 
-        // Enemy Select Attack
+        // Enemy Select Action
 
-            if (_enemy.getHealth() > 0) {
+            if (_enemy.getHealth() > 0 && _player.getFightingStatus()) {
                 switch (enemyChoice) {
                     case 1:
                         _enemy.attack(_player);
@@ -142,6 +147,7 @@ void battle(player& _player, enemy& _enemy) {
         // Set Floor Limits on Attribute Values
 
             if (_player.getHealth() <= 0) {
+                
                 _player.setHealth(0);
             }
             if (_enemy.getHealth() <= 0) {
@@ -173,6 +179,7 @@ void battle(player& _player, enemy& _enemy) {
 
 
 
+
     // Check Who Has Died
 
         if (_player.getHealth() == 0) {
@@ -180,6 +187,10 @@ void battle(player& _player, enemy& _enemy) {
         }
 
         else if (_enemy.getHealth() == 0) {
+
+            vector<string>lootItems;
+            lootItems.push_back("Health Potions");
+
             cout << "You have defeated the " << _enemy.getName() << "!" << endl;
 
 
@@ -189,6 +200,9 @@ void battle(player& _player, enemy& _enemy) {
             while (_player.getCurrentXP() >= _player.getRequiredXP()) {
                 _player.checkLevel();
             }
+
+            _player.getInventory().getItemByName(lootItems[0])->quantity += 1;
+            cout << "Acquired 1 Health Potion!" << endl;
 
             _player.displayFullData();
 

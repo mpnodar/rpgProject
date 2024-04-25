@@ -22,4 +22,3 @@ Location::Location(GameMap* m)
 {
 	gameMap = m;
 }
-

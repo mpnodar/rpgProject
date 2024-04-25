@@ -20,6 +20,7 @@ character::character() {
     attackValue = false;
     defendValue = false;
     healthPotions = 3;
+    inventory characterInventory;
 }
 
 character::character(string _name, int _level) {
@@ -37,6 +38,7 @@ character::character(string _name, int _level) {
     attackValue = false;
     defendValue = false;
     healthPotions = 3;
+    inventory characterInventory;
 }
 
 enemy::enemy() {
@@ -127,6 +129,8 @@ wraith::wraith(int _level) {
 player::player() {
     name = "Player";
     level = 0;
+    getInventory().addItem("Gold", 100);
+    getInventory().addItem("Health Potions", 3);
 }
 
 player::player(int _level, string _name) {
@@ -139,6 +143,9 @@ player::player(int _level, string _name) {
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
+    getInventory().addItem("Health Potions", 3);
+    getInventory().addItem("Gold", 100);
+
 }
 
 
@@ -158,6 +165,38 @@ int character::getAttackDamage() {
 }
 
 void character::attack(character& defender) {
+
+    setDefend(false);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 5);
+    int criticalHit = distrib(gen);
+
+    if (((defender.getDefend()) != true) || (defender.getStamina() <= 0)) {
+
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage());
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 2);
+        }
+    }
+    else if ((defender.getDefend() == true) && (defender.getStamina() > 0)) {
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks, but " << defender.getName() << " defends!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage());
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks! " << defender.getName() << " defends!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
+        }
+    }
+}
+
+/* void character::attack(character& defender) {
 
     setDefend(false);
 
@@ -189,7 +228,7 @@ void character::attack(character& defender) {
             defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
         }
     }
-}
+} */
 
 /* void player::attack(character& defender) {
     
@@ -249,7 +288,8 @@ void character::defend() {
 }
 
 void character::run() {
-    cout << "\nRun Away" << endl;
+    setFightingStatus(false);
+    cout << "\n" << name << " runs away." << endl;
 }
 
 
@@ -342,9 +382,62 @@ void character::checkLevel() {
     }
 }
 
+bool& character::getFightingStatus() {
+    return fightingStatus;
+}
+
+void character::setFightingStatus(bool status) {
+    fightingStatus = status;
+}
+
+inventory& character::getInventory() {
+    return characterInventory;
+}
+
+void character::openInventory() {
+    getInventory().displayInventory();
+}
+
+void player::manageInventory() {
+    
+    int choice = 0;
 
 
 
+    while (choice != 3) {
+
+        inventoryItem* item;
+        openInventory();
+
+        cout << "1. Use Item" << endl;
+        cout << "2. Drop Item" << endl;
+        cout << "3. Back" << endl;
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            item = getInventory().useItem();
+            if (item->name == "Health Potions" && item->quantity > 0) {
+                item->quantity = item->quantity - 1;
+                restoreHealth(25);
+            }
+            else if (item->name == "Health Potions" && item->quantity <= 0) {
+                cout << "No Health Potions Left!";
+            }
+
+
+
+
+            break;
+        case 2:
+            getInventory().dropItem();
+            break;
+        case 3:
+            cout << "\n\n-----------------------\n" << endl;
+
+        }
+    }
+}
 
 
 void character::displayData() {

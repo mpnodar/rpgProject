@@ -2,6 +2,7 @@
 #define CHARACTERS_H
 
 #include <iostream>
+#include "inventory.cpp"
 
 using namespace std;
 
@@ -21,10 +22,24 @@ protected:
     bool attackValue;
     bool defendValue;
     int healthPotions;
+    inventory characterInventory;
+    bool fightingStatus;
+
 
 public:
+
+
+
     character();
     character(string _name, int _level);
+
+    void openInventory();
+
+
+    inventory& getInventory();
+
+    bool& getFightingStatus();
+    void setFightingStatus(bool);
 
     int getHealth();
     void setHealth(int _health);
@@ -69,6 +84,8 @@ public:
     void setDefend(bool);
     bool getDefend();
 
+    void addToInventory(inventoryItem*);
+    void dropFromInventory(int);
 
 };
 
@@ -90,6 +107,9 @@ public:
     player();
 
     player(int _level, string name);
+
+    void manageInventory();
+
 
     /* void attack(character&);*/
 
