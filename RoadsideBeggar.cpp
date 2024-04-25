@@ -7,17 +7,17 @@ RoadsideBeggar::RoadsideBeggar(std::string name) : TalkingNPC(6, name)
 		{1, 2, 3});
 	dialogueTree[1] = new DialogueNode("Is that really it?!\n",
 		"1. You dare say that to me?!\n2. That is all I have.\n",
-		{4, -1});
+		{4, GaveGold});
 	dialogueTree[2] = new DialogueNode("How can you be so cruel to a poor beggar?\n",
 		"1. I don't have time for this!\n2. Oh fine here's some cash.\n",
-		{-1, 5});
+		{Ended, 5});
 	dialogueTree[3] = new DialogueNode("But I can see your gold pouch is full and heavy.\n",
 		"1. You see nothing.\n2. Oh fine here's some cash.\n",
 		{ 2, 5 });
 	dialogueTree[4] = new DialogueNode("Yes I dare give me more money!\n",
 		"1. I don't have time for this!\n2. Oh fine here's some cash.\n",
-		{ -1, 5 });
+		{ Ended, 5 });
 	dialogueTree[5] = new DialogueNode("Thank you master.\n",
 		"1. [Leave]\n",
-		{ -1});
+		{ GaveGold });
 }

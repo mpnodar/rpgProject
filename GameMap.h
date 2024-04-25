@@ -4,6 +4,7 @@
 #include "Location.h"
 #include "TownSquare.h"
 #include "Merchant.h"
+#include "RoadToWoods.h"
 
 class Location;
 

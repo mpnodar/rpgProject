@@ -5,10 +5,17 @@ TownSquare::TownSquare(GameMap* m) : Location(m){
 
 	TalkToCitizen* talkCitizen = new TalkToCitizen();
 	actions.push_back(talkCitizen);
+
 	MoveTo* moveToMerchant = new MoveTo();
 	moveToMerchant->description = "Move north to merchant";
 	moveToMerchant->moveToLocation = "Merchant";
 	moveToMerchant->gameMap = m;
 	actions.push_back(moveToMerchant);
+
+	MoveTo* moveToRoadToWoods = new MoveTo();
+	moveToRoadToWoods->description = "Move east to woods";
+	moveToRoadToWoods->moveToLocation = "RoadToWoods";
+	moveToRoadToWoods->gameMap = m;
+	actions.push_back(moveToRoadToWoods);
 }
 

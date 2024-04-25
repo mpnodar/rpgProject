@@ -4,7 +4,7 @@ DialogueResponse TalkingNPC::printDialogue(int currentDialogue)
 {
 	std::cout << "\n" << name << " says: ";
 	std::cout << dialogueTree[currentDialogue]->NPCDialogue << "\nSelect response:\n";
-	std::cout << dialogueTree[currentDialogue]->playerChoices;
+	std::cout << dialogueTree[currentDialogue]->playerChoices << "\n:";
 	int response;
 	std::cin >> response;
 	if (response > dialogueTree[currentDialogue]->nextDialogues.size()) return Ended;
