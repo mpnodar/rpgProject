@@ -1,13 +1,10 @@
 #include <iostream>
 #include "characters.h"
+#include "shop.h"
 
 using namespace std;
 
-bool val = true, val2 = true, val3 = true;
-
-int gold = 200;
-
-void weapons() {
+void shop::weapons() {
 
     int select;
 
@@ -86,7 +83,7 @@ void weapons() {
 
 }
 
-void armor() {
+void shop::armor() {
 
 
     int select;
@@ -167,7 +164,7 @@ void armor() {
 
 }
 
-void potions() {
+void shop::potions() {
 
     int select;
 
@@ -246,7 +243,7 @@ void potions() {
 
 }
 
-void misc() {
+void shop::misc() {
 
     int select;
 
@@ -327,7 +324,7 @@ void misc() {
 }
 
 
-void shop(player _player) {
+void shop::displayGoods(player* _player) {
 
     while (val2 == true) {
 

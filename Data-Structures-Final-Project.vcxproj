@@ -128,8 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="battleSequence.cpp" />
+    <ClCompile Include="characters.cpp" />
     <ClCompile Include="dataStructuresProject.cpp" />
     <ClCompile Include="DialogueNode.cpp" />
+    <ClCompile Include="gameMenu.cpp" />
+    <ClCompile Include="inventory.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="ManChoppingWood.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -137,6 +141,7 @@
     <ClCompile Include="MoveTo.cpp" />
     <ClCompile Include="RoadsideBeggar.cpp" />
     <ClCompile Include="RoadToWoods.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="TalkingNPC.cpp" />
     <ClCompile Include="TalkToBegger.cpp" />
     <ClCompile Include="TalkToCitizen.cpp" />
@@ -144,7 +149,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="battleSequence.h" />
+    <ClInclude Include="characters.h" />
     <ClInclude Include="DialogueNode.h" />
+    <ClInclude Include="gameMenu.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="ManChoppingWood.h" />
     <ClInclude Include="GameMap.h" />
@@ -152,10 +160,14 @@
     <ClInclude Include="RoadsideBeggar.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="RoadToWoods.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="TalkingNPC.h" />
     <ClInclude Include="TalkToBegger.h" />
     <ClInclude Include="TalkToCitizen.h" />
     <ClInclude Include="TownSquare.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

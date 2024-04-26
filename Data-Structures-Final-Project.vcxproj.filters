@@ -57,6 +57,21 @@
     <ClCompile Include="TalkToBegger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="characters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="battleSequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogueNode.h">
@@ -98,5 +113,20 @@
     <ClInclude Include="TalkToBegger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gameMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="characters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="battleSequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>

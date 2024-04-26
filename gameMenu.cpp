@@ -1,32 +1,30 @@
 #include <iostream>
-#include "battleSequence.cpp"
+#include "gameMenu.h"
+#include "shop.h"
+#include "battleSequence.h"
 
 
 using namespace std;
 
-bool menuLoop = true;
-
-void returnToGame() {
+void gameMenu::returnToGame() {
     cout << "Return to Game..." << endl;
 }
 
-void enterShop(player you) {
-    shop(you);
-}
-
-void talkToSomeone() {
+void gameMenu::talkToSomeone() {
     cout << "Talk to someone..." << endl;
 }
 
-void quitGame() {
+void gameMenu::quitGame() {
     cout << "Exiting game..." << endl;
     menuLoop = false;
 }
 
 
-void menu(player& you) {
+void gameMenu::menu(player* you) {
 
     int input;
+    shop s;
+    battleSequence b;
 
     do {
 
@@ -41,15 +39,15 @@ void menu(player& you) {
             break;
 
         case 2:
-            randomBattle(you);
+            b.randomBattle(you);
             break;
 
         case 3:
-            you.manageInventory();
+            you->manageInventory();
             break;
 
         case 4:
-            enterShop(you);
+            s.displayGoods(you);
             break;
 
         case 5:
@@ -63,6 +61,6 @@ void menu(player& you) {
         default:
             cout << "\nInvalid input!\n" << endl;
         }
-    } while (menuLoop == true);
+    } while (menuLoop);
 
 }

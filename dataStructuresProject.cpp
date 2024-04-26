@@ -1,5 +1,4 @@
 #include <iostream>
-#include "gameMenu.cpp"
 #include "RoadsideBeggar.h"
 #include "TalkingNPC.h"
 #include "DialogueNode.h"
@@ -10,9 +9,16 @@
 #include "Location.h"
 #include "Merchant.h"
 #include "GameMap.h"
+#include "gameMenu.h"
+#include "characters.h"
 
 
 int main() {
+
+	player p;
+
+	gameMenu menu;
+	menu.menu(&p);
 
 	GameMap map;
 	map.play();
