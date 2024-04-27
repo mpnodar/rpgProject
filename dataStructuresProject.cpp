@@ -35,9 +35,34 @@ static void characterSelect(player& you_) {
 		cout << "Please enter a name for your character: ";
 		cin >> name;
 		you_.setName(name);
-		
-	}
+		break;
+	case 2:
+		you_.setMaxHealth(40);
+		you_.setHealth(40);
+		// you_.setMaxMagicka(30);
+		you_.setMaxStamina(50);
+		you_.setStamina(50);
+		you_.setAttack(5);
 
+		cout << "Please enter a name for your character: ";
+		cin >> name;
+		you_.setName(name);
+		break;
+
+
+	case 3:
+		you_.setMaxHealth(55);
+		you_.setHealth(55);
+		// you_.setMaxMagicka(30);
+		you_.setMaxStamina(50);
+		you_.setStamina(50);
+		you_.setAttack(9);
+
+		cout << "Please enter a name for your character: ";
+		cin >> name;
+		you_.setName(name);
+		break;	
+	}
 } 
 
 
