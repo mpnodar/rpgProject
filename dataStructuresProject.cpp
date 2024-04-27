@@ -71,6 +71,8 @@ int main() {
 
 	player p;
 
+	characterSelect(p);
+
 	gameMenu menu;
 	menu.menu(&p);
 
