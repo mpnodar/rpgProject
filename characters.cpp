@@ -7,7 +7,7 @@ using namespace std;
 
 character::character() {
     name = "No Name";
-    level = 0;
+    level = 1;
     maxHealth = (40 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
@@ -43,7 +43,7 @@ character::character(string _name, int _level) {
 
 enemy::enemy() {
     name = "Enemy";
-    level = 0;
+    level = 1;
 
 }
 
@@ -128,7 +128,7 @@ wraith::wraith(int _level) {
 
 player::player() {
     name = "Player";
-    level = 0;
+    level = 1;
     getInventory().addItem("Gold", 100);
     getInventory().addItem("Health Potions", 3);
 }
