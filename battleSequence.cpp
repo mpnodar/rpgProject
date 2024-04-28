@@ -50,6 +50,21 @@ int battleSequence::randintNear(int target, int min, int max) {
     return result;
 }
 
+int battleSequence::randintEnemyAttack() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 100);
+
+    int randomNumber = distrib(gen);
+
+    if (randomNumber <= 99) { 
+        return randomNumber % 4 + 1;
+    }
+    else { 
+        return 5; 
+    }
+}
+
 
 
 
@@ -72,6 +87,20 @@ int battleSequence::displayBattleOptions() {
 
 }
 
+int battleSequence::displayAttacks() {
+
+    int choice;
+
+    cout << "\n----------------------" << endl;
+    cout << "1. Standard Attack" << endl;
+    cout << "2. Magic Attack" << endl;
+    cout << "----------------------\n" << endl;
+
+    cin >> choice;
+    return choice;
+
+}
+
 
 
 
@@ -82,99 +111,127 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
     // Set Fighting Status to True
 
     _player->setFightingStatus(true);
+    _enemy->setFightingStatus(true);
+
+    _player->setStamina(_player->getMaxStamina());
+    _player->setMagicka(_player->getMaxMagicka());
+
 
     // Battle Loop
 
-    while (_player->getHealth() > 0 && _enemy->getHealth() > 0 && _player->getFightingStatus()) {
+    while (_player->getHealth() > 0 && _enemy->getHealth() > 0 && _player->getFightingStatus() && _enemy->getFightingStatus()) {
 
         // Initial Display Data
-            
-            
+
+
+
             _enemy->displayData();
             _player->displayData();
 
-            
-            int enemyChoice = randint(1, 3);
 
-            if (enemyChoice == 2) {
-                _enemy->setDefend(true);
-            }
-            else {
-                _enemy->setDefend(false);
-            }
+        int enemyChoice = randintEnemyAttack();
+
+        if (enemyChoice == 2) {
+            _enemy->setDefend(true);
+        }
+        else {
+            _enemy->setDefend(false);
+        }
 
 
         // Player Select Action
 
-            switch (displayBattleOptions()) {
-                case 1:
-                    _player->attack(*_enemy);
-                    break;
-                case 2:
-                    _player->defend();
-                    break;
-                case 3:
-                    _player->manageInventory();
-                    break;
-                case 4:
-                    _player->run();                   
-                    break;
+
+
+        switch (displayBattleOptions()) {
+        case 1:
+            switch (displayAttacks()) {
+            case 1:
+                _player->attack(*_enemy);
+                break;
+            case 2:
+                _player->magicAttack(*_enemy);
+                break;
             }
+            break;
+        case 2:
+            _player->defend();
+            break;
+        case 3:
+            _player->manageInventory();
+            break;
+        case 4:
+            _player->run();
+            break;
+        }
 
 
         // Enemy Select Action
 
-            if (_enemy->getHealth() > 0 && _player->getFightingStatus()) {
-                switch (enemyChoice) {
-                    case 1:
-                        _enemy->attack(*_player);
-                        break;
-                    case 2:
-                        _enemy->defend();
-                        break;
-                    case 3:
-                        _enemy->restoreHealth(5);
-                        break;
-                    case 4:
-                        cout << "\nRun" << endl;
-                        break;
-                    }
+        if (_enemy->getHealth() > 0 && _player->getFightingStatus()) {
+            switch (enemyChoice) {
+            case 1:
+                _enemy->attack(*_player);
+                break;
+            case 2:
+                _enemy->defend();
+                break;
+            case 3:
+                _enemy->restoreHealth(5);
+                break;
+            case 4:
+                _enemy->magicAttack(*_player);
+                break;
+            case 5:
+                _enemy->run();
+                break;
             }
+        }      
 
 
+        if (_player->getPoisoned() == true) {
+            _player->setHealth(_player->getHealth() - 8);
+        }
 
 
         // Set Floor Limits on Attribute Values
 
-            if (_player->getHealth() <= 0) {
-                
-                _player->setHealth(0);
-            }
-            if (_enemy->getHealth() <= 0) {
-                _enemy->setHealth(0);
-            }
+        if (_player->getHealth() <= 0) {
 
-            if (_player->getStamina() <= 0) {
-                _player->setStamina(0);
-            }
-            if (_enemy->getStamina() <= 0) {
-                _enemy->setStamina(0);
-            }
+            _player->setHealth(0);
+        }
+        if (_enemy->getHealth() <= 0) {
+            _enemy->setHealth(0);
+        }
 
+        if (_player->getStamina() <= 0) {
+            _player->setStamina(0);
+        }
+        if (_enemy->getStamina() <= 0) {
+            _enemy->setStamina(0);
+        }
 
+        if (_player->getMagicka() <= 0) {
+            _player->setMagicka(0);
+        }
+        if (_enemy->getMagicka() <= 0) {
+            _enemy->setMagicka(0);
+        }
 
+        
 
+      
     }
-
 
 
 
 
     // Post-battle Display Data
 
+    if (_enemy->getFightingStatus() && _player->getFightingStatus()) {
         _enemy->displayData();
         _player->displayData();
-
+    }
 
 
 
@@ -182,31 +239,34 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
     // Check Who Has Died
 
-        if (_player->getHealth() == 0) {
-            cout << "\nYou have died." << endl;
+    if (_player->getHealth() == 0) {
+        cout << "\nYou have died." << endl;
+    }
+
+    else if (_enemy->getHealth() == 0) {
+
+        vector<string>lootItems;
+        lootItems.push_back("Health Potions");
+
+        cout << "You have defeated the " << _enemy->getName() << "!" << endl;
+
+
+        _player->setCurrentXP(_player->getCurrentXP() + (20 * _enemy->getLevel()));
+        cout << "XP Earned: " << (20 * _enemy->getLevel()) << endl;
+
+        while (_player->getCurrentXP() >= _player->getRequiredXP()) {
+            _player->checkLevel();
         }
 
-        else if (_enemy->getHealth() == 0) {
+        _player->getInventory().getItemByName(lootItems[0])->quantity += 1;
+        cout << "Acquired 1 Health Potion!" << endl;
 
-            vector<string>lootItems;
-            lootItems.push_back("Health Potions");
-
-            cout << "You have defeated the " << _enemy->getName() << "!" << endl;
+        _player->displayFullData();
 
 
-            _player->setCurrentXP(_player->getCurrentXP() + (20 * _enemy->getLevel()));
-            cout << "XP Earned: " << (20 * _enemy->getLevel()) << endl;
-            
-            while (_player->getCurrentXP() >= _player->getRequiredXP()) {
-                _player->checkLevel();
-            }
+    }
 
-            _player->getInventory().getItemByName(lootItems[0])->quantity += 1;
-            cout << "Acquired 1 Health Potion!" << endl;
-
-            _player->displayFullData();
-
-        }
+    _player->setPoisoned(false);
 
 }
 
@@ -227,7 +287,7 @@ void battleSequence::randomBattle(player* _player) {
     wraith dumbass(randLevel);
 
     int randEnemy = randint(1, 100);
-    
+
     if (randEnemy <= 50) {
         battle(_player, &nilbog);
     }
@@ -239,7 +299,7 @@ void battleSequence::randomBattle(player* _player) {
     else if (randEnemy > 90) {
         battle(_player, &dumbass);
     }
-    
+
 
 
 }
