@@ -10,6 +10,6 @@ class MoveTo : public Action
 public:
 	GameMap* gameMap;
 	std::string moveToLocation;
-	void execute(player*) override;
+	ActionResponse execute(player*) override;
 };
 

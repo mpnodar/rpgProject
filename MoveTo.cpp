@@ -1,7 +1,7 @@
 #include "MoveTo.h"
 #include "GameMap.h"
 
-void MoveTo::execute(player* p)
+ActionResponse MoveTo::execute(player* p)
 {
-	gameMap->locations[moveToLocation]->execLocation(p);
+	return gameMap->locations[moveToLocation]->execLocation(p);
 }

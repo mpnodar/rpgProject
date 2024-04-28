@@ -3,20 +3,14 @@
 #include <string>
 #include <vector>
 #include "DialogueNode.h"
-
-enum DialogueResponse {
-	Ended = -1,
-	GaveGold = -2,
-	Attack = -3,
-	Purchase = -4,
-};
+#include "ActionResponse.h"
 
 class TalkingNPC
 {
 public:
 	std::string name;
 	std::vector<DialogueNode*> dialogueTree;
-	DialogueResponse printDialogue(int currentDialogue);
+	ActionResponse printDialogue(int currentDialogue);
 	TalkingNPC(int treeSize, std::string npcName);
 	~TalkingNPC();
 };

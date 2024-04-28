@@ -19,7 +19,7 @@ public:
 	std::string description;
 	double probabilityOfMonsterEncounter;
 	std::vector<Action*> actions;
-	void execLocation(player*);
+	ActionResponse execLocation(player*);
 	Location(GameMap* m);
 	void addGameMenu();
 };

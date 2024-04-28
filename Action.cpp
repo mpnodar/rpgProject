@@ -1,5 +1,6 @@
 #include "Action.h"
 
-void Action::execute(player* p)
+ActionResponse Action::execute(player*)
 {
+	return ActionResponse();
 }

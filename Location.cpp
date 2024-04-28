@@ -7,10 +7,10 @@ void Location::addGameMenu()
 	actions.push_back(&menuAction);
 }
 
-void Location::execLocation(player* p)
+ActionResponse Location::execLocation(player* p)
 {
-	bool isMoveTo = false;
 	int userInput;
+	ActionResponse AR;
 	do{
 		std::cout << "\n" << description << "\n";
 		int numOfAction = 1;
@@ -19,9 +19,10 @@ void Location::execLocation(player* p)
 		}
 		std::cout << "Make selection:\n";
 		std::cin >> userInput;
-		actions[userInput - 1]->execute(p);
-		isMoveTo = typeid(*actions[userInput - 1]) == typeid(MoveTo);
-	} while (!isMoveTo);
+		AR = actions[userInput - 1]->execute(p);
+	} while (AR != Move and AR != QuitGame);
+
+	return AR;
 }
 
 Location::Location(GameMap* m)

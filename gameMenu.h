@@ -1,11 +1,11 @@
 #pragma once
 #include "characters.h"
+#include "ActionResponse.h"
 
 class gameMenu {
 public:
-	bool menuLoop = true;
 	void returnToGame();
 	void talkToSomeone();
 	void quitGame();
-	void menu(player*);
+	ActionResponse menu(player*);
 };

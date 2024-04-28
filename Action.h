@@ -2,10 +2,11 @@
 #include <string>
 #include "TalkingNPC.h"
 #include "characters.h"
+#include "ActionResponse.h"
 class Action
 {
 public:
 	std::string description;
-	virtual void execute(player*);
+	virtual ActionResponse execute(player*);
 };
 

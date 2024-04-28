@@ -6,6 +6,6 @@ class TalkToBegger : public Action
 {
 public:
 	TalkToBegger();
-	void execute(player* p) override;
+	ActionResponse execute(player* p) override;
 };
 

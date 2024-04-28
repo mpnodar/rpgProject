@@ -1,6 +1,6 @@
 #include "TalkingNPC.h"
 
-DialogueResponse TalkingNPC::printDialogue(int currentDialogue)
+ActionResponse TalkingNPC::printDialogue(int currentDialogue)
 {
 	std::cout << "\n" << name << " says: ";
 	std::cout << dialogueTree[currentDialogue]->NPCDialogue << "\nSelect response:\n";
@@ -9,7 +9,7 @@ DialogueResponse TalkingNPC::printDialogue(int currentDialogue)
 	std::cin >> response;
 	if (response > dialogueTree[currentDialogue]->nextDialogues.size()) return Ended;
 	int nextDialoguesIndex = dialogueTree[currentDialogue]->nextDialogues[response - 1];
-	if (nextDialoguesIndex < 0) return (DialogueResponse)nextDialoguesIndex;
+	if (nextDialoguesIndex < 0) return (ActionResponse)nextDialoguesIndex;
 	return printDialogue(nextDialoguesIndex);
 }
 

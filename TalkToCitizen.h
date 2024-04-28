@@ -6,6 +6,6 @@ class TalkToCitizen : public Action
 {
 public:
 	TalkToCitizen();
-	void execute(player* p) override;
+	ActionResponse execute(player* p) override;
 };
 

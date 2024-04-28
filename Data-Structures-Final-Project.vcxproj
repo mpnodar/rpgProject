@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="ActionResponse.h" />
     <ClInclude Include="battleSequence.h" />
     <ClInclude Include="characters.h" />
     <ClInclude Include="DialogueNode.h" />
