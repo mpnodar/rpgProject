@@ -24,7 +24,7 @@ ActionResponse Location::execLocation(player* p)
 		if (userInput <= actions.size()) {
 			AR = actions[userInput - 1]->execute(p);
 		}
-	} while (AR != Move and AR != QuitGame);
+	} while (AR != Move and AR != QuitGame and AR != PlayerDied);
 
 	return AR;
 }

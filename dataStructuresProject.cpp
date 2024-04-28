@@ -11,6 +11,7 @@
 #include "GameMap.h"
 #include "gameMenu.h"
 #include "characters.h"
+#include <random>
 
 
 static void characterSelect(player& you_) {
@@ -71,6 +72,8 @@ static void characterSelect(player& you_) {
 
 
 int main() {
+
+	srand(time(0));
 
 	player p;
 

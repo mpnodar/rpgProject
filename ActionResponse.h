@@ -12,5 +12,6 @@ enum ActionResponse{
 	QuitGame = -10,
 	Move = -11,
 	NotSet = -12,
-	AcceptQuest = -13
+	AcceptQuest = -13,
+	PlayerDied = -14
 };

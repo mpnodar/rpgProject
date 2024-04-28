@@ -2,6 +2,7 @@
 #include "battleSequence.h"
 #include <iostream>
 #include <random>
+#include <cstdlib>
 
 using namespace std;
 
@@ -120,6 +121,8 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
     // Battle Loop
 
     while (_player->getHealth() > 0 && _enemy->getHealth() > 0 && _player->getFightingStatus() && _enemy->getFightingStatus()) {
+
+        std::system("cls");
 
         // Initial Display Data
 
