@@ -17,5 +17,7 @@ TownSquare::TownSquare(GameMap* m) : Location(m){
 	moveToRoadToWoods->moveToLocation = "RoadToWoods";
 	moveToRoadToWoods->gameMap = m;
 	actions.push_back(moveToRoadToWoods);
+
+	addGameMenu();
 }
 

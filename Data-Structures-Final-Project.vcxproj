@@ -133,6 +133,7 @@
     <ClCompile Include="dataStructuresProject.cpp" />
     <ClCompile Include="DialogueNode.cpp" />
     <ClCompile Include="gameMenu.cpp" />
+    <ClCompile Include="GameMenuAction.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="ManChoppingWood.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="characters.h" />
     <ClInclude Include="DialogueNode.h" />
     <ClInclude Include="gameMenu.h" />
+    <ClInclude Include="GameMenuAction.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="ManChoppingWood.h" />
     <ClInclude Include="GameMap.h" />

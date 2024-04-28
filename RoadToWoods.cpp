@@ -12,5 +12,7 @@ RoadToWoods::RoadToWoods(GameMap* m) : Location(m)
 	townSquare->description = "Move west to Town Square";
 	townSquare->moveToLocation = "TownSquare";
 	townSquare->gameMap = m;
-	actions.push_back(townSquare);
+	actions.push_back(townSquare); \
+
+	addGameMenu();
 }

@@ -9,4 +9,6 @@ Merchant::Merchant(GameMap* m) : Location(m){
 	moveToTownSquare->moveToLocation = "TownSquare";
 	moveToTownSquare->gameMap = m;
 	actions.push_back(moveToTownSquare);
+
+	addGameMenu();
 }

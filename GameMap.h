@@ -6,6 +6,7 @@
 #include "Merchant.h"
 #include "RoadToWoods.h"
 #include "characters.h"
+#include "gameMenu.h"
 
 class Location;
 
@@ -16,5 +17,6 @@ public:
 	GameMap();
 	~GameMap();
 	void play(player*);
+	gameMenu m;
 };
 

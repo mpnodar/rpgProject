@@ -1,5 +1,11 @@
 #include "Location.h"
 #include "MoveTo.h"
+#include "GameMenuAction.h"
+
+void Location::addGameMenu()
+{
+	actions.push_back(&menuAction);
+}
 
 void Location::execLocation(player* p)
 {
@@ -21,4 +27,5 @@ void Location::execLocation(player* p)
 Location::Location(GameMap* m)
 {
 	gameMap = m;
+
 }
