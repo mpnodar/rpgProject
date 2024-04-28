@@ -22,8 +22,11 @@ protected:
     bool attackValue;
     bool defendValue;
     int healthPotions;
+    int staminaPotions;
+    int magickaPotions;
     inventory characterInventory;
     bool fightingStatus;
+    bool poisoned;
 
 
 public:
@@ -38,14 +41,31 @@ public:
 
     inventory& getInventory();
 
+    void setPoisoned(bool);
+    bool getPoisoned();
+
     bool& getFightingStatus();
     void setFightingStatus(bool);
 
     int getHealth();
-    void setHealth(int _health);
+    void setHealth(int);
+
+    int getMagicka();
+    void setMagicka(int);
 
     int getStamina();
-    void setStamina(int _stamina);
+    void setStamina(int);
+
+    int getMaxStamina();
+    void setMaxStamina(int);
+
+    int getMaxHealth();
+    void setMaxHealth(int);
+
+    int getMaxMagicka();
+    void setMaxMagicka(int);
+
+    void setName(string);
 
     int getAttackDamage();
     int getStaminaPotions();
@@ -55,7 +75,8 @@ public:
     int getMagickaPotions();
     void setMagickaPotions(int _magicka_potions);
 
-    void attack(character&);
+    virtual void attack(character&);
+    virtual void magicAttack(character&);
     void defend();
     void run();
 
@@ -70,7 +91,7 @@ public:
     void setRequiredXP(int newXp);
     void levelUp();
 
-    
+
     string getName();
 
 
@@ -136,6 +157,7 @@ class wraith : public enemy {
 public:
     wraith();
     wraith(int _level);
+    void magicAttack(character&) override;
 };
 
 #endif
