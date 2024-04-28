@@ -1,7 +1,7 @@
 #include "Location.h"
 #include "MoveTo.h"
 
-void Location::execLocation()
+void Location::execLocation(player* p)
 {
 	bool isMoveTo = false;
 	int userInput;
@@ -13,7 +13,7 @@ void Location::execLocation()
 		}
 		std::cout << "Make selection:\n";
 		std::cin >> userInput;
-		actions[userInput - 1]->execute();
+		actions[userInput - 1]->execute(p);
 		isMoveTo = typeid(*actions[userInput - 1]) == typeid(MoveTo);
 	} while (!isMoveTo);
 }

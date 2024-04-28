@@ -1,5 +1,5 @@
 #include "Action.h"
 
-void Action::execute()
+void Action::execute(player* p)
 {
 }

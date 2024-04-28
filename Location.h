@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include "Action.h"
+#include "characters.h"
 
 class GameMap;
 
@@ -15,6 +16,6 @@ public:
 	std::string description;
 	double probabilityOfMonsterEncounter;
 	std::vector<Action*> actions;
-	void execLocation();
+	void execLocation(player*);
 	Location(GameMap* m);
 };

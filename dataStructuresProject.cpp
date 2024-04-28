@@ -9,8 +9,8 @@
 #include "Location.h"
 #include "Merchant.h"
 #include "GameMap.h"
-#include "gameMenu.cpp"
-#include "characters.cpp"
+#include "gameMenu.h"
+#include "characters.h"
 
 
 static void characterSelect(player& you_) {
@@ -76,11 +76,11 @@ int main() {
 
 	characterSelect(p);
 
-	gameMenu menu;
-	menu.menu(&p);
+	/*gameMenu menu;
+	menu.menu(&p);*/
 
-	/*GameMap map;
-	map.play(); */
+	GameMap map;
+	map.play(&p); 
 
 	/*RoadsideBeggar jim("Jim");
 	jim.printDialogue(0);*/

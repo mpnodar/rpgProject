@@ -5,6 +5,7 @@
 #include "TownSquare.h"
 #include "Merchant.h"
 #include "RoadToWoods.h"
+#include "characters.h"
 
 class Location;
 
@@ -14,6 +15,6 @@ public:
 	std::map<std::string, Location*> locations;
 	GameMap();
 	~GameMap();
-	void play();
+	void play(player*);
 };
 

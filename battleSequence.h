@@ -7,6 +7,8 @@ private:
 	int randintHigh(int min, int max);
 	int randintNear(int target, int min, int max);
 	int displayBattleOptions();
+	int randintEnemyAttack();
+	int displayAttacks();
 public:
 	void battle(player* _player, enemy* _enemy);
 	void randomBattle(player* _player);

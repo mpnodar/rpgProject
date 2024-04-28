@@ -14,7 +14,7 @@ GameMap::~GameMap()
 	delete locations["RoadToWoods"];
 }
 
-void GameMap::play()
+void GameMap::play(player* p)
 {
-	locations["TownSquare"]->execLocation();
+	locations["TownSquare"]->execLocation(p);
 }
