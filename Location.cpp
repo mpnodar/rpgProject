@@ -1,6 +1,7 @@
 #include "Location.h"
 #include "MoveTo.h"
 #include "GameMenuAction.h"
+#include <cstdlib>
 
 void Location::addGameMenu()
 {
@@ -12,6 +13,7 @@ ActionResponse Location::execLocation(player* p)
 	int userInput;
 	ActionResponse AR;
 	do{
+		std::system("cls");
 		std::cout << "\n" << description << "\n";
 		int numOfAction = 1;
 		for (auto a : actions) {
@@ -19,7 +21,9 @@ ActionResponse Location::execLocation(player* p)
 		}
 		std::cout << "Make selection:\n";
 		std::cin >> userInput;
-		AR = actions[userInput - 1]->execute(p);
+		if (userInput <= actions.size()) {
+			AR = actions[userInput - 1]->execute(p);
+		}
 	} while (AR != Move and AR != QuitGame);
 
 	return AR;

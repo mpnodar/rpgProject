@@ -2,6 +2,7 @@
 #include "gameMenu.h"
 #include "shop.h"
 #include "battleSequence.h"
+#include <cstdlib>
 
 
 using namespace std;
@@ -27,7 +28,7 @@ ActionResponse gameMenu::menu(player* you) {
     battleSequence b;
 
     do {
-
+        std::system("cls");
         cout << "\n1. Return to Game\n2. Enter Battle\n3. Manage Inventory\n4. Enter Shop\n5. Talk to Someone\n6. Quit Game\n" << endl;
         cin >> input;
 

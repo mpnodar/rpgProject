@@ -131,6 +131,7 @@
     <ClCompile Include="battleSequence.cpp" />
     <ClCompile Include="Beast.cpp" />
     <ClCompile Include="characters.cpp" />
+    <ClCompile Include="Citizen.cpp" />
     <ClCompile Include="dataStructuresProject.cpp" />
     <ClCompile Include="DialogueNode.cpp" />
     <ClCompile Include="gameMenu.cpp" />
@@ -146,10 +147,13 @@
     <ClCompile Include="RoadsideBeggar.cpp" />
     <ClCompile Include="RoadToWoods.cpp" />
     <ClCompile Include="ShadyPeople.cpp" />
+    <ClCompile Include="ShadyPerson.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="TalkingNPC.cpp" />
     <ClCompile Include="TalkToBegger.cpp" />
     <ClCompile Include="TalkToCitizen.cpp" />
+    <ClCompile Include="TalkToShadyPerson.cpp" />
+    <ClCompile Include="TalkToWoodsman.cpp" />
     <ClCompile Include="TownSquare.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +162,7 @@
     <ClInclude Include="battleSequence.h" />
     <ClInclude Include="Beast.h" />
     <ClInclude Include="characters.h" />
+    <ClInclude Include="Citizen.h" />
     <ClInclude Include="DialogueNode.h" />
     <ClInclude Include="gameMenu.h" />
     <ClInclude Include="GameMenuAction.h" />
@@ -171,10 +176,13 @@
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="RoadToWoods.h" />
     <ClInclude Include="ShadyPeople.h" />
+    <ClInclude Include="ShadyPerson.h" />
     <ClInclude Include="shop.h" />
     <ClInclude Include="TalkingNPC.h" />
     <ClInclude Include="TalkToBegger.h" />
     <ClInclude Include="TalkToCitizen.h" />
+    <ClInclude Include="TalkToShadyPerson.h" />
+    <ClInclude Include="TalkToWoodsman.h" />
     <ClInclude Include="TownSquare.h" />
   </ItemGroup>
   <ItemGroup>

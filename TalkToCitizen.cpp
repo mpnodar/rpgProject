@@ -7,6 +7,6 @@ TalkToCitizen::TalkToCitizen()
 
 ActionResponse TalkToCitizen::execute(player* p)
 {
-	ManChoppingWood dave("Dave the Wood Chopper");
+	Citizen dave("Dave the panicked");
 	return dave.printDialogue(0);
 }

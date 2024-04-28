@@ -1,7 +1,9 @@
 #include "TalkingNPC.h"
+#include <cstdlib>
 
 ActionResponse TalkingNPC::printDialogue(int currentDialogue)
 {
+	std::system("cls");
 	std::cout << "\n" << name << " says: ";
 	std::cout << dialogueTree[currentDialogue]->NPCDialogue << "\nSelect response:\n";
 	std::cout << dialogueTree[currentDialogue]->playerChoices << "\n:";

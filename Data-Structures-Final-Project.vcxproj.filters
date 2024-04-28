@@ -87,6 +87,18 @@
     <ClCompile Include="ShadyPeople.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Citizen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadyPerson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkToShadyPerson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkToWoodsman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogueNode.h">
@@ -156,6 +168,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShadyPeople.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Citizen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadyPerson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkToShadyPerson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkToWoodsman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
