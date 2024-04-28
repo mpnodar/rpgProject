@@ -25,7 +25,7 @@ public:
         }
     }
 
-    
+
 
     void addItem(const string& itemName, int quantity) {
         inventoryItem* newItem = new inventoryItem;

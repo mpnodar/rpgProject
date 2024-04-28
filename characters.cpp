@@ -21,6 +21,8 @@ character::character() {
     defendValue = false;
     healthPotions = 3;
     inventory characterInventory;
+    fightingStatus = false;
+    poisoned = false;
 }
 
 character::character(string _name, int _level) {
@@ -39,6 +41,8 @@ character::character(string _name, int _level) {
     defendValue = false;
     healthPotions = 3;
     inventory characterInventory;
+    fightingStatus = false;
+    poisoned = false;
 }
 
 enemy::enemy() {
@@ -130,6 +134,8 @@ player::player() {
     name = "Player";
     level = 1;
     getInventory().addItem("Gold", 100);
+    getInventory().addItem("Stamina Potions", 3);
+    getInventory().addItem("Magicka Potions", 3);
     getInventory().addItem("Health Potions", 3);
 }
 
@@ -144,6 +150,8 @@ player::player(int _level, string _name) {
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
     getInventory().addItem("Health Potions", 3);
+    getInventory().addItem("Stamina Potions", 3);
+    getInventory().addItem("Magicka Potions", 3);
     getInventory().addItem("Gold", 100);
 
 }
@@ -163,6 +171,8 @@ void character::setHealth(int _health) {
 int character::getAttackDamage() {
     return attackDamage;
 }
+
+// Standard Attack
 
 void character::attack(character& defender) {
 
@@ -195,6 +205,75 @@ void character::attack(character& defender) {
         }
     }
 }
+
+
+// Magic Attack
+
+
+void character::magicAttack(character& defender) {
+
+    setDefend(false);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 5);
+    int criticalHit = distrib(gen);
+
+    if ((((defender.getDefend()) != true) || (defender.getStamina() <= 0)) && (getMagicka() > 0) ) {
+
+        if (criticalHit < 5) {
+            cout << "\n" << name << " uses magic!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage()*3);
+            setMagicka(getMagicka() - 20);
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks with magic!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 5);
+
+            setMagicka(getMagicka() - 20);
+        }
+    }
+    else if (((defender.getDefend() == true) && (defender.getStamina() > 0)) && (getMagicka() > 0)) {
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks with magic, but " << defender.getName() << " tries to defend!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage());
+            defender.setHealth(defender.getHealth() - getAttackDamage()*2);
+
+            setMagicka(getMagicka() - 20);
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks with magic! " << defender.getName() << " tries to defend!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 4);
+
+            setMagicka(getMagicka() - 20);
+        }
+    }
+    else if (getMagicka() == 0) {
+        cout << "\n" << name << " tries to use magic but is out of magicka.\n" << endl;
+    }
+}
+
+void wraith::magicAttack(character& defender) {
+
+    setDefend(false);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 5);
+    int criticalHit = distrib(gen);
+
+    if (getMagicka() > 0) {
+            cout << "\n" << name << " uses poison!\n" << endl;
+            setMagicka(getMagicka() - 20);
+            defender.setPoisoned(true);
+        }
+       
+    else if (getMagicka() == 0) {
+        cout << "\n" << name << " tries to use poison but is out of magicka.\n" << endl;
+    }
+}
+
 
 /* void character::attack(character& defender) {
 
@@ -231,7 +310,7 @@ void character::attack(character& defender) {
 } */
 
 /* void player::attack(character& defender) {
-    
+
     setDefend(false);
 
     if ((defender.getDefend()) != true) {
@@ -289,7 +368,9 @@ void character::defend() {
 
 void character::run() {
     setFightingStatus(false);
+    cout << "\n----------------------" << endl;
     cout << "\n" << name << " runs away." << endl;
+    cout << "\n----------------------\n" << endl;
 }
 
 
@@ -317,33 +398,108 @@ int character::getStaminaPotions() {
     return currentStamina;
 }
 
+void character::setStaminaPotions(int _stamina) {
+    staminaPotions = _stamina;
+}
+
+void character::setMagickaPotions(int _magicka) {
+    magickaPotions = _magicka;
+}
+
 void character::setStamina(int _stamina) {
     currentStamina = _stamina;
 }
 
+int character::getMagicka() {
+    return currentMagicka;
+}
+
+void character::setMagicka(int _magicka) {
+    currentMagicka = _magicka;
+}
+
 void character::restoreHealth(int _health) {
-    setHealthPotions(getHealthPotions() - 1);
-    setDefend(false);
-    currentHealth += _health;
+    if (currentHealth + _health <= maxHealth) {
+        setHealthPotions(getHealthPotions() - 1);
+        setDefend(false);
+        currentHealth += _health;
+    }
+    else if (currentHealth + _health > maxHealth) {
+        setHealthPotions(getHealthPotions() - 1);
+        setDefend(false);
+        currentHealth = maxHealth;
+    }
 }
 
 void enemy::restoreHealth(int _health) {
-    setDefend(false);
-    setHealthPotions(getHealthPotions() - 1);
-    currentHealth += _health;
+    if (currentHealth + _health <= maxHealth) {
+        setHealthPotions(getHealthPotions() - 1);
+        setDefend(false);
+        currentHealth += _health;
+    }
+    else if (currentHealth + _health > maxHealth) {
+        setHealthPotions(getHealthPotions() - 1);
+        setDefend(false);
+        currentHealth = maxHealth;
+    }
     cout << "\n" << name << " restores health.\n" << endl;
-    cout << getHealthPotions();
 }
 
 void character::restoreMagicka(int _magicka) {
-    setDefend(false);
-    currentMagicka += _magicka;
+    if (currentMagicka + _magicka <= maxMagicka) {
+        setMagickaPotions(getMagickaPotions() - 1);
+        setDefend(false);
+        currentHealth += _magicka;
+    }
+    else if (currentMagicka + _magicka > maxMagicka) {
+        setMagickaPotions(getMagickaPotions() - 1);
+        setDefend(false);
+        currentMagicka = maxMagicka;
+    }
 }
 
 void character::restoreStamina(int _stamina) {
-    setDefend(false);
-    currentStamina += _stamina;
+    if (currentStamina + _stamina <= maxStamina) {
+        setStaminaPotions(getStaminaPotions() - 1);
+        setDefend(false);
+        currentStamina += _stamina;
+    }
+    if (currentStamina + _stamina > maxStamina) {
+        setStaminaPotions(getStaminaPotions() - 1);
+        setDefend(false);
+        currentStamina = _stamina;
+    }
 }
+
+void character::setMaxStamina(int stamina_) {
+    maxStamina = stamina_;
+}
+
+int character::getMaxStamina() {
+    return maxStamina;
+}
+
+int character::getMaxHealth() {
+    return maxHealth;
+}
+void character::setMaxHealth(int health_) {
+    maxHealth = health_;
+}
+
+int character::getMaxMagicka() {
+    return maxMagicka;
+}
+
+void character::setMaxMagicka(int _magicka) {
+    maxMagicka = _magicka;
+}
+
+void character::setName(string _name) {
+    name = _name;
+}
+
+
+
 
 int character::getCurrentXP() {
     return currentXp;
@@ -361,6 +517,14 @@ void character::setRequiredXP(int newXp) {
 
 int character::getLevel() {
     return level;
+}
+
+bool character::getPoisoned() {
+    return poisoned;
+}
+
+void character::setPoisoned(bool _value) {
+    poisoned = _value;
 }
 
 void character::levelUp() {
@@ -399,7 +563,7 @@ void character::openInventory() {
 }
 
 void player::manageInventory() {
-    
+
     int choice = 0;
 
 
@@ -416,6 +580,9 @@ void player::manageInventory() {
 
         switch (choice) {
         case 1:
+
+            // Health Potions
+
             item = getInventory().useItem();
             if (item->name == "Health Potions" && item->quantity > 0) {
                 item->quantity = item->quantity - 1;
@@ -425,8 +592,25 @@ void player::manageInventory() {
                 cout << "No Health Potions Left!";
             }
 
+            // Stamina Potions
 
+            if (item->name == "Stamina Potions" && item->quantity > 0) {
+                item->quantity = item->quantity - 1;
+                restoreStamina(25);
+            }
+            else if (item->name == "Stamina Potions" && item->quantity <= 0) {
+                cout << "No Stamina Potions Left!";
+            }
 
+            // Magicka Potions
+
+            if (item->name == "Magicka Potions" && item->quantity > 0) {
+                item->quantity = item->quantity - 1;
+                restoreMagicka(25);
+            }
+            else if (item->name == "Magicka Potions" && item->quantity <= 0) {
+                cout << "No Magicka Potions Left!";
+            }
 
             break;
         case 2:
