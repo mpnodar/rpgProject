@@ -75,6 +75,18 @@
     <ClCompile Include="GameMenuAction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PathThroughWoods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OrcCamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Beast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadyPeople.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DialogueNode.h">
@@ -132,6 +144,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ActionResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathThroughWoods.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OrcCamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Beast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadyPeople.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

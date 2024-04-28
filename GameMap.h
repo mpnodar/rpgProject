@@ -7,6 +7,10 @@
 #include "RoadToWoods.h"
 #include "characters.h"
 #include "gameMenu.h"
+#include "ShadyPeople.h"
+#include "Beast.h"
+#include "OrcCamp.h"
+#include "PathThroughWoods.h"
 
 class Location;
 

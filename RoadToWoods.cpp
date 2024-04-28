@@ -8,11 +8,17 @@ RoadToWoods::RoadToWoods(GameMap* m) : Location(m)
 	TalkToBegger* talkingBegger = new TalkToBegger();
 	actions.push_back(talkingBegger);
 
-	MoveTo* townSquare = new MoveTo();
-	townSquare->description = "Move west to Town Square";
-	townSquare->moveToLocation = "TownSquare";
-	townSquare->gameMap = m;
-	actions.push_back(townSquare); \
+	MoveTo* moveToTownSquare = new MoveTo();
+	moveToTownSquare->description = "Move west to Town Square";
+	moveToTownSquare->moveToLocation = "TownSquare";
+	moveToTownSquare->gameMap = m;
+	actions.push_back(moveToTownSquare);
+
+	MoveTo* moveToPathThroughWoods = new MoveTo();
+	moveToPathThroughWoods->description = "Follow the path";
+	moveToPathThroughWoods->moveToLocation = "PathThroughWoods";
+	moveToPathThroughWoods->gameMap = m;
+	actions.push_back(moveToPathThroughWoods);
 
 	addGameMenu();
 }
