@@ -330,8 +330,14 @@ void shop::displayGoods(player* _player) {
 
         int select;
 
-        cout << "What are you buying?\n\n1. Weapons\n2. Armor\n3. Potions\n4. Miscellaneous\n5. Exit the Shop\n\n(Please enter the corresponding number)\n";
+        if (isArmorer) {
+            cout << "What are you buying?\n\n1. Weapons\n2. Armor\n3. Exit the Shop\n\n(Please enter the corresponding number)\n";
+        }
+        else {
+            cout << "What are you buying?\n\n1. Potions\n2. Miscellaneous\n3. Exit the Shop\n\n(Please enter the corresponding number)\n";
+        }
         cout << " \n";
+
 
         cin >> select;
 
@@ -343,22 +349,24 @@ void shop::displayGoods(player* _player) {
 
             switch (select) {
             case 1:
-                weapons();
+                if (isArmorer) {
+                    weapons();
+                }
+                else {
+                    potions();
+                }
                 break;
 
             case 2:
-                armor();
+                if (isArmorer) {
+                    armor();
+                }
+                else {
+                    misc();
+                }
                 break;
 
             case 3:
-                potions();
-                break;
-
-            case 4:
-                misc();
-                break;
-
-            case 5:
                 cout << "Good doing business with you. Please come again!";
                 cout << " \n\n";
                 val = false;

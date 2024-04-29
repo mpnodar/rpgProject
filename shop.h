@@ -9,5 +9,6 @@ private:
 	void potions();
 	void misc();
 public:
+	bool isArmorer = false;
 	void displayGoods(player* _player);
 };

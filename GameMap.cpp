@@ -4,6 +4,7 @@ GameMap::GameMap()
 {
 	locations["TownSquare"] = new TownSquare(this);
 	locations["Merchant"] = new Merchant(this);
+	locations["Armorer"] = new Armorer(this);
 	locations["RoadToWoods"] = new RoadToWoods(this);
 	locations["ShadyPeople"] = new ShadyPeople(this);
 	locations["Beast"] = new Beast(this);
@@ -12,6 +13,7 @@ GameMap::GameMap()
 
 	HT->add(new hashNode("TownSquare", {}));
 	HT->add(new hashNode("Merchant", {"Bandit"}));
+	HT->add(new hashNode("Armorer", {}));
 	HT->add(new hashNode("RoadToWoods", {"Goblin", "Orc", "Bandit"}));
 	HT->add(new hashNode("ShadyPeople", {"Bandit"}));
 	HT->add(new hashNode("Beast", {}));
@@ -23,6 +25,7 @@ GameMap::~GameMap()
 {
 	delete locations["TownSquare"];
 	delete locations["Merchant"];
+	delete locations["Armorer"];
 	delete locations["RoadToWoods"];
 	delete locations["ShadyPeople"];
 	delete locations["Beast"];

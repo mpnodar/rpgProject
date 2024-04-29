@@ -13,6 +13,7 @@
 #include "PathThroughWoods.h"
 #include "hashTable.h"
 #include "hashNode.h"
+#include "Armorer.h"
 #include <random>
 
 class Location;

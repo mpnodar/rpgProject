@@ -4,7 +4,7 @@
 #include "shop.h"
 
 Merchant::Merchant(GameMap* m) : Location(m){
-	description = "You enter the store and find many goods layed out in an orderly fashion.";
+	description = "In the store you find many goods layed out in an orderly fashion.";
 
 	probabilityOfMonsterEncounter = 0.01;
 
