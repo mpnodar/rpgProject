@@ -15,5 +15,6 @@ enum ActionResponse{
 	AcceptQuest = -13,
 	PlayerDied = -14,
 	PlayerDefeatedEnemy = -15,
-	PlayerFled = -16
+	PlayerFled = -16,
+	LeftShop = -17
 };

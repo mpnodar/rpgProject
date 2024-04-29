@@ -154,6 +154,7 @@
     <ClCompile Include="ShadyPeople.cpp" />
     <ClCompile Include="ShadyPerson.cpp" />
     <ClCompile Include="shop.cpp" />
+    <ClCompile Include="ShoppingAction.cpp" />
     <ClCompile Include="SLL.cpp" />
     <ClCompile Include="TalkingNPC.cpp" />
     <ClCompile Include="TalkToBegger.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="ShadyPeople.h" />
     <ClInclude Include="ShadyPerson.h" />
     <ClInclude Include="shop.h" />
+    <ClInclude Include="ShoppingAction.h" />
     <ClInclude Include="SLL.h" />
     <ClInclude Include="TalkingNPC.h" />
     <ClInclude Include="TalkToBegger.h" />
