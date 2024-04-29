@@ -129,6 +129,30 @@ wraith::wraith(int _level) {
     currentStamina = maxStamina;
 }
 
+bandit::bandit() {
+    name = "Bandit";
+    level = 10;
+    maxHealth = (50 + (level * 4));
+    maxStamina = (40 + (level * 3));
+    maxMagicka = (10 + (level * 2));
+    attackDamage = 15 + (level * 2);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
+bandit::bandit(int _level) {
+    name = "Bandit";
+    level = _level;
+    maxHealth = (50 + (level * 4));
+    maxStamina = (40 + (level * 3));
+    maxMagicka = (10 + (level * 2));
+    attackDamage = 15 + (level * 2);
+    currentHealth = maxHealth;
+    currentMagicka = maxMagicka;
+    currentStamina = maxStamina;
+}
+
 
 player::player() {
     name = "Player";

@@ -160,4 +160,10 @@ public:
     void magicAttack(character&) override;
 };
 
+class bandit : public enemy {
+public:
+    bandit();
+    bandit(int _level);
+};
+
 #endif

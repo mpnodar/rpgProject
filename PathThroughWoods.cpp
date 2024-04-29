@@ -5,7 +5,7 @@ PathThroughWoods::PathThroughWoods(GameMap* m) : Location(m)
 {
 	description = "You see a man chopping some logs by a cabin in the woods just beyond the path.";
 	
-	probabilityOfMonsterEncounter = 1;
+	probabilityOfMonsterEncounter = 0.35;
 
 	TalkToWoodsman* talkToMike = new TalkToWoodsman();
 	actions.push_back(talkToMike);

@@ -11,10 +11,10 @@ GameMap::GameMap()
 	locations["PathThroughWoods"] = new PathThroughWoods(this);
 
 	HT->add(new hashNode("TownSquare", {}));
-	HT->add(new hashNode("Merchant", {}));
-	HT->add(new hashNode("RoadToWoods", {"Goblin"}));
-	HT->add(new hashNode("ShadyPeople", {}));
-	HT->add(new hashNode("Beast", {"Wraith"}));
+	HT->add(new hashNode("Merchant", {"Bandit"}));
+	HT->add(new hashNode("RoadToWoods", {"Goblin", "Orc", "Bandit"}));
+	HT->add(new hashNode("ShadyPeople", {"Bandit"}));
+	HT->add(new hashNode("Beast", {}));
 	HT->add(new hashNode("OrcCamp", {"Orc"}));
 	HT->add(new hashNode("PathThroughWoods", {"Goblin", "Orc"}));
 }
@@ -52,6 +52,10 @@ enemy* GameMap::getRandomMonster(std::string locationName)
 		}
 		else if (monster == "Orc") {
 			enemy* m = new orc(user->getLevel());
+			return m;
+		}
+		else if (monster == "Bandit") {
+			enemy* m = new bandit(user->getLevel());
 			return m;
 		}
 		enemy* m = new wraith(user->getLevel());

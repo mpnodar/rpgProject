@@ -1,10 +1,16 @@
 #include "Beast.h"
+#include "characters.h"
+#include "EnemyAttackAction.h"
 
 Beast::Beast(GameMap* m) : Location(m)
 {
-	description = "You follow the path into the woods and find resting on a big rock is a great beast. It sees you and enters into combat.";
+	description = "You follow the path into the woods and find resting on a big rock is a great beast.";
 
-	//TODO Enter battle with beast
+	EnemyAttackAction* attackMonster = new EnemyAttackAction();
+	attackMonster->description = "Fight beast";
+	enemy* monster = new wraith(2);
+	attackMonster->setEnemy(monster);
+	actions.push_back(attackMonster);
 
 	MoveTo* moveToPathThroughWoods = new MoveTo();
 	moveToPathThroughWoods->description = "Return to previous part of path";

@@ -134,6 +134,7 @@
     <ClCompile Include="Citizen.cpp" />
     <ClCompile Include="dataStructuresProject.cpp" />
     <ClCompile Include="DialogueNode.cpp" />
+    <ClCompile Include="EnemyAttackAction.cpp" />
     <ClCompile Include="gameMenu.cpp" />
     <ClCompile Include="GameMenuAction.cpp" />
     <ClCompile Include="Hasher.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="characters.h" />
     <ClInclude Include="Citizen.h" />
     <ClInclude Include="DialogueNode.h" />
+    <ClInclude Include="EnemyAttackAction.h" />
     <ClInclude Include="gameMenu.h" />
     <ClInclude Include="GameMenuAction.h" />
     <ClInclude Include="Hasher.h" />

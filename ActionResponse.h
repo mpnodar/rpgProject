@@ -13,5 +13,7 @@ enum ActionResponse{
 	Move = -11,
 	NotSet = -12,
 	AcceptQuest = -13,
-	PlayerDied = -14
+	PlayerDied = -14,
+	PlayerDefeatedEnemy = -15,
+	PlayerFled = -16
 };

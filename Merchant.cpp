@@ -4,6 +4,8 @@
 Merchant::Merchant(GameMap* m) : Location(m){
 	description = "You find an empty shop.";
 
+	probabilityOfMonsterEncounter = 0.01;
+
 	MoveTo* moveToTownSquare = new MoveTo();
 	moveToTownSquare->description = "Leave";
 	moveToTownSquare->moveToLocation = "TownSquare";
