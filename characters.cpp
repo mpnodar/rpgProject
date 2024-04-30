@@ -14,7 +14,7 @@ character::character() {
     maxHealth = (40 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 5 + (level * 3);
+    attackDamage = 5 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -26,6 +26,7 @@ character::character() {
     inventory characterInventory;
     fightingStatus = false;
     poisoned = false;
+    healing = false;
 }
 
 character::character(string _name, int _level) {
@@ -34,7 +35,7 @@ character::character(string _name, int _level) {
     maxHealth = (40 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 5 + (level * 3);
+    attackDamage = 5 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -46,6 +47,7 @@ character::character(string _name, int _level) {
     inventory characterInventory;
     fightingStatus = false;
     poisoned = false;
+    healing = false;
 }
 
 enemy::enemy() {
@@ -66,7 +68,7 @@ goblin::goblin() : enemy() {
     maxHealth = (30 + (level * 5));
     maxStamina = (30 + (level * 5));
     maxMagicka = (20 + (level * 5));
-    attackDamage = 5 + (level * 3);
+    attackDamage = 5 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -78,7 +80,7 @@ goblin::goblin(int _level) : enemy() {
     maxHealth = (30 + (level * 5));
     maxStamina = (30 + (level * 5));
     maxMagicka = (20 + (level * 5));
-    attackDamage = 5 + (level * 3);
+    attackDamage = 5 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -90,7 +92,7 @@ orc::orc() {
     maxHealth = (50 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 15 + (level * 2);
+    attackDamage = 10 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -102,7 +104,7 @@ orc::orc(int _level) {
     maxHealth = (50 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 15 + (level * 3);
+    attackDamage = 10 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -114,7 +116,7 @@ wraith::wraith() {
     maxHealth = (70 + (level * 5));
     maxStamina = (70 + (level * 5));
     maxMagicka = (100 + (level * 5));
-    attackDamage = 25 + (level * 3);
+    attackDamage = 25 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -126,7 +128,7 @@ wraith::wraith(int _level) {
     maxHealth = (70 + (level * 5));
     maxStamina = (70 + (level * 5));
     maxMagicka = (100 + (level * 5));
-    attackDamage = 25 + (level * 3);
+    attackDamage = 25 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -243,7 +245,7 @@ void character::attack(character& defender) {
 // Magic Attack
 
 
-void character::magicAttack(character& defender) {
+/* void character::magicAttack(character& defender) {
 
     setDefend(false);
 
@@ -285,9 +287,9 @@ void character::magicAttack(character& defender) {
     else if (getMagicka() == 0) {
         cout << "\n" << name << " tries to use magic but is out of magicka.\n" << endl;
     }
-}
+} */
 
-void wraith::magicAttack(character& defender) {
+void character::magicAttack(character& defender) {
 
     setDefend(false);
 
@@ -295,6 +297,50 @@ void wraith::magicAttack(character& defender) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distrib(1, 5);
     int criticalHit = distrib(gen);
+
+    if ((((defender.getDefend()) != true) || (defender.getStamina() <= 0)) && (getMagicka() > 0) ) {
+
+        if (criticalHit < 5) {
+            cout << "\n" << name << " uses fireball!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage()*3);
+            setMagicka(getMagicka() - 20);
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks with fireball!\n" << endl;
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 5);
+
+            setMagicka(getMagicka() - 20);
+        }
+    }
+    else if (((defender.getDefend() == true) && (defender.getStamina() > 0)) && (getMagicka() > 0)) {
+        if (criticalHit < 5) {
+            cout << "\n" << name << " attacks with fireball, but " << defender.getName() << " tries to defend!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage());
+            defender.setHealth(defender.getHealth() - getAttackDamage()*2);
+
+            setMagicka(getMagicka() - 20);
+        }
+        else if (criticalHit == 5) {
+            cout << "\n" << name << " critical attacks with fireball! " << defender.getName() << " tries to defend!\n" << endl;
+            defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 4);
+
+            setMagicka(getMagicka() - 20);
+        }
+    }
+    else if (getMagicka() == 0) {
+        cout << "\n" << name << " tries to use fireball but is out of magicka.\n" << endl;
+    }
+}
+
+void wraith::magicAttack(character& defender) {
+
+    setDefend(false);
+
+    /* std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distrib(1, 5);
+    int criticalHit = distrib(gen); */
 
     if (getMagicka() > 0) {
             cout << "\n" << name << " uses poison!\n" << endl;
@@ -306,6 +352,36 @@ void wraith::magicAttack(character& defender) {
         cout << "\n" << name << " tries to use poison but is out of magicka.\n" << endl;
     }
 }
+
+void character::magicHeal() {
+    setDefend(false);
+
+    if (getMagicka() > 0) {
+        cout << "\n" << name << " uses slow healing spell!\n" << endl;
+        setMagicka(getMagicka() - 25);
+        setHealing(true);
+    }
+
+    else if (getMagicka() == 0) {
+        cout << "\n" << name << " tries to use slow healing spell but is out of magicka.\n" << endl;
+    }
+}
+
+void character::magicStaminaHeal() {
+    setDefend(false);
+
+    if (getMagicka() > 0) {
+        cout << "\n" << name << " uses slow stamina healing spell!\n" << endl;
+        setMagicka(getMagicka() - 20);
+        setStaminaHealing(true);
+    }
+
+    else if (getMagicka() == 0) {
+        cout << "\n" << name << " tries to use slow stamina healing spell but is out of magicka.\n" << endl;
+    }
+}
+
+
 
 
 /* void character::attack(character& defender) {
@@ -372,6 +448,22 @@ void wraith::magicAttack(character& defender) {
 
 
 } */
+
+void character::setStaminaHealing(bool _value) {
+    staminaHealing = _value;
+}
+
+bool character::getStaminaHealing() {
+    return staminaHealing;
+}
+
+void character::setHealing(bool _value) {
+    healing = _value;
+}
+
+bool character::getHealing() {
+    return healing;
+}
 
 bool character::getDefend() {
     return defendValue;

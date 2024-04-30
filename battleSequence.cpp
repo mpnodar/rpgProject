@@ -66,20 +66,41 @@ int battleSequence::randintNear(int target, int min, int max) {
     return result;
 }
 
-int battleSequence::randintEnemyAttack() {
+int battleSequence::randintEnemyAttack(int parameter) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distrib(1, 100);
 
-    int randomNumber = distrib(gen);
+    double lowerProb = 0.1; // Start with a low probability for 5
+    double upperProb = 1.0; // Highest probability for 1 and 2 combined
 
-    if (randomNumber <= 99) { 
-        return randomNumber % 4 + 1;
+    // Adjust probabilities based on the parameter
+    for (int i = 0; i < parameter; ++i) {
+        lowerProb *= 0.9; // Slightly increase lower probability with each iteration
+        upperProb -= lowerProb; // Adjust upper probability accordingly
     }
-    else { 
-        return 5; 
+
+    std::uniform_real_distribution<double> distrib(0.0, upperProb);
+
+    double randomNumber = distrib(gen);
+
+    if (randomNumber < lowerProb * 2) {
+        return 2; // Equally probable with 1
+    }
+    else if (randomNumber < lowerProb * 4) {
+        return 1; // Equally probable with 2
+    }
+    else if (randomNumber < lowerProb * 8) {
+        return 3; // Less likely
+    }
+    else if (randomNumber < lowerProb * 16) {
+        return 4; // Much less likely
+    }
+    else {
+        return 5; // Extremely unlikely
     }
 }
+
+
 
 
 
@@ -93,9 +114,10 @@ int battleSequence::displayBattleOptions() {
     int choice;
 
     cout << "\n\n1. Attack" << endl;
-    cout << "2. Defend" << endl;
-    cout << "3. Open Inventory" << endl;
-    cout << "4. Run Away\n\n" << endl;
+    cout << "2. Magic Spells" << endl;
+    cout << "3. Defend" << endl;
+    cout << "4. Open Inventory" << endl;
+    cout << "5. Run Away\n\n" << endl;
     cout << "----------------------\n" << endl;
 
     cin >> choice;
@@ -109,7 +131,22 @@ int battleSequence::displayAttacks() {
 
     cout << "\n----------------------" << endl;
     cout << "1. Standard Attack" << endl;
-    cout << "2. Magic Attack [-20 Magicka]" << endl;
+    cout << "2. Fireball Attack [-20 Magicka]" << endl;
+    cout << "----------------------\n" << endl;
+
+    cin >> choice;
+    return choice;
+
+}
+
+int battleSequence::displaySpells() {
+
+    int choice;
+
+    cout << "\n----------------------" << endl;
+    cout << "1. Fireball Attack [-20 Magicka]" << endl;
+    cout << "2. Slow Healing [-25 Magicka]" << endl;
+    cout << "3. Slow Stamina Healing [-20 Magicka]" << endl;
     cout << "----------------------\n" << endl;
 
     cin >> choice;
@@ -150,7 +187,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             _player->displayData();
 
 
-        int enemyChoice = randintEnemyAttack();
+        int enemyChoice = randintEnemyAttack(_enemy->getHealth());
 
         if (enemyChoice == 2) {
             _enemy->setDefend(true);
@@ -175,15 +212,29 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             case 2:
                 _player->magicAttack(*_enemy);
                 break;
+           
             }
             break;
         case 2:
-            _player->defend();
+            switch (displaySpells()) {
+            case 1:
+                _player->magicAttack(*_enemy);
+                break;
+            case 2:
+                _player->setHealing(true);
+                break;
+            case 3:
+                _player->setStaminaHealing(true);
+                break;
+            }
             break;
         case 3:
-            _player->manageInventory();
+            _player->defend();
             break;
         case 4:
+            _player->manageInventory();
+            break;
+        case 5:
             _player->run();
             playerRun = true;
             break;
@@ -219,6 +270,22 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             _player->setHealth(_player->getHealth() - 8);
         }
 
+        if (_player->getHealing() == true) {
+            _player->setHealth(_player->getHealth() + 8);
+        }
+
+        if (_enemy->getHealing() == true) {
+            _enemy->setHealth(_enemy->getHealth() + 8);
+        }
+
+        if (_player->getStaminaHealing() == true) {
+            _player->setStamina(_player->getStamina() + 8);
+        }
+
+        if (_enemy->getStaminaHealing() == true) {
+            _enemy->setStamina(_enemy->getStamina() + 8);
+        }
+
 
         // Set Floor Limits on Attribute Values
 
@@ -242,6 +309,31 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         }
         if (_enemy->getMagicka() <= 0) {
             _enemy->setMagicka(0);
+        }
+
+
+        // Set Ceiling Limits on Attributes
+
+        if (_player->getHealth() >= _player->getMaxHealth()) {
+            _player->setHealth(_player->getMaxHealth());
+        }
+
+        if (_enemy->getHealth() >= _enemy->getMaxHealth()) {
+            _enemy->setHealth(_enemy->getMaxHealth());
+        }
+
+        if (_player->getStamina() >= _player->getMaxStamina()) {
+            _player->setStamina(_player->getMaxStamina());
+        }
+        if (_enemy->getStamina() >= _enemy->getMaxStamina()) {
+            _enemy->setStamina(_enemy->getMaxStamina());
+        }
+
+        if (_player->getMagicka() >= _player->getMaxMagicka()) {
+            _player->setMagicka(_player->getMaxMagicka());
+        }
+        if (_enemy->getMagicka() >= _enemy->getMaxMagicka()) {
+            _enemy->setMagicka(_enemy->getMaxMagicka());
         }
 
         

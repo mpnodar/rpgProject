@@ -28,6 +28,8 @@ protected:
     inventory characterInventory;
     bool fightingStatus;
     bool poisoned;
+    bool healing;
+    bool staminaHealing;
 
 
 public:
@@ -43,8 +45,18 @@ public:
 
     void openInventory();
 
+    void magicHeal();
+    void magicStaminaHeal();
+
+
 
     inventory& getInventory();
+
+    void setStaminaHealing(bool);
+    bool getStaminaHealing();
+
+    void setHealing(bool);
+    bool getHealing();
 
     void setPoisoned(bool);
     bool getPoisoned();

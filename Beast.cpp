@@ -8,7 +8,7 @@ Beast::Beast(GameMap* m) : Location(m)
 
 	EnemyAttackAction* attackMonster = new EnemyAttackAction();
 	attackMonster->description = "Fight beast";
-	enemy* monster = new wraith(2);
+	enemy* monster = new wraith(30);
 	attackMonster->setEnemy(monster);
 	actions.push_back(attackMonster);
 
