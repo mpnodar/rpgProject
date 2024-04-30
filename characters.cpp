@@ -664,7 +664,7 @@ void character::displayData() {
     cout << "----------------------" << endl;
     cout << name << "\nLevel: " << level << endl;
     cout << "  - - - - - - - - - - " << endl;
-    cout << "Health: " << currentHealth << "\nStamina: " << currentStamina << "\nMagicka: " << currentMagicka << endl;
+    cout << "Health: " << currentHealth << " / " << maxHealth << "\nStamina: " << currentStamina << " / " << maxStamina << "\nMagicka: " << currentMagicka << " / " << maxMagicka << endl;
     cout << "----------------------" << endl;
 }
 
@@ -679,6 +679,6 @@ void character::displayFullData() {
     if (currentXp < requiredXp) { cout << "XP Until Next Level: " << requiredXp - currentXp << "\n" << endl; }
     else { cout << "Ready to Level Up" << "\n" << endl; }
 
-    cout << "Health: " << currentHealth << "\nStamina: " << currentStamina << "\nMagicka: " << currentMagicka << "\nAttack Damage: " << attackDamage << endl;
+    cout << "Health: " << currentHealth << " / " << maxHealth << "\nStamina: " << currentStamina << " / " << maxStamina << "\nMagicka: " << currentMagicka << " / " << maxMagicka << endl;
     cout << "----------------------" << endl;
 }

@@ -4,13 +4,17 @@
 
 OrcCamp::OrcCamp(GameMap* m) : Location(m)
 {
+
+	int randLevel = battleSequence::randintNear(10, 1, 20);
+
+
 	description = "Wondering through the woods you stubmle apon a camp of orcs. There seems to be a fight between two orcs.";
 
 	probabilityOfMonsterEncounter = 0.05;
 
 	EnemyAttackAction* attackMonster = new EnemyAttackAction();
 	attackMonster->description = "Join brawl";
-	enemy* monster = new orc();
+	enemy* monster = new orc(randLevel);
 	attackMonster->setEnemy(monster);
 	actions.push_back(attackMonster);
 

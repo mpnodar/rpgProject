@@ -96,7 +96,7 @@ int battleSequence::displayAttacks() {
 
     cout << "\n----------------------" << endl;
     cout << "1. Standard Attack" << endl;
-    cout << "2. Magic Attack" << endl;
+    cout << "2. Magic Attack [-25 Magicka]" << endl;
     cout << "----------------------\n" << endl;
 
     cin >> choice;
@@ -122,6 +122,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
     // Battle Loop
 
+    bool playerRun = false;
 
 
     while (_player->getHealth() > 0 && _enemy->getHealth() > 0 && _player->getFightingStatus() && _enemy->getFightingStatus()) {
@@ -170,6 +171,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             break;
         case 4:
             _player->run();
+            playerRun = true;
             break;
         }
 
@@ -299,7 +301,10 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
     }
 
-    this_thread::sleep_for(chrono::seconds(7));
+    if (!playerRun) {
+        this_thread::sleep_for(chrono::seconds(7));
+    }
+
     std::system("cls");
     _player->setPoisoned(false);
 
