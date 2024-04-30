@@ -12,12 +12,12 @@ RoadsideBeggar::RoadsideBeggar(std::string name) : TalkingNPC(6, name)
 		"1. I don't have time for this!\n2. Oh fine here's some cash.\n",
 		{Ended, 5});
 	dialogueTree[3] = new DialogueNode("But I can see your gold pouch is full and heavy.\n",
-		"1. You see nothing.\n2. Oh fine here's some cash.\n",
+		"1. You see nothing.\n2. Oh fine, here's some cash.\n",
 		{ 2, 5 });
-	dialogueTree[4] = new DialogueNode("Yes I dare give me more money!\n",
-		"1. I don't have time for this!\n2. Oh fine here's some cash.\n",
+	dialogueTree[4] = new DialogueNode("Yes I dare! Give me more money!\n",
+		"1. I don't have time for this!\n2. Oh fine, here's some cash.\n",
 		{ Ended, 5 });
-	dialogueTree[5] = new DialogueNode("Thank you master.\n",
+	dialogueTree[5] = new DialogueNode("Thank you, mister.\n",
 		"1. [Leave]\n",
 		{ GaveGold });
 }

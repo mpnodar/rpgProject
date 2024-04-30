@@ -1,7 +1,7 @@
 #include "TownSquare.h"
 #include "MoveTo.h"
 TownSquare::TownSquare(GameMap* m) : Location(m){
-	description = "The town square is busling with life, but you see someone on their knees begging the guards for something.";
+	description = "The town square is bustling with life, but you see someone on their knees begging the guards for something.";
 
 	TalkToCitizen* talkCitizen = new TalkToCitizen();
 	actions.push_back(talkCitizen);

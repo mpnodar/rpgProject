@@ -5,8 +5,21 @@
 #include <cstdlib>
 #include <chrono>
 #include <thread>
+#include <Windows.h>
+#include <mmsystem.h>
+#include <iostream>
+
 
 using namespace std;
+
+#pragma comment (lib, "winmm.lib")
+
+
+// Death Sound
+
+void playDeathSound() {
+    PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/mixkit-arcade-retro-game-over-213.wav"), NULL, SND_FILENAME | SND_SYNC);
+}
 
 
 
@@ -96,7 +109,7 @@ int battleSequence::displayAttacks() {
 
     cout << "\n----------------------" << endl;
     cout << "1. Standard Attack" << endl;
-    cout << "2. Magic Attack [-25 Magicka]" << endl;
+    cout << "2. Magic Attack [-20 Magicka]" << endl;
     cout << "----------------------\n" << endl;
 
     cin >> choice;
@@ -158,6 +171,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             case 1:
                 _player->attack(*_enemy);
                 break;
+
             case 2:
                 _player->magicAttack(*_enemy);
                 break;
@@ -252,7 +266,13 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
     // Check Who Has Died
 
     if (_player->getHealth() == 0) {
+        std::thread soundThread(playDeathSound);
+
+
         cout << "\nYou have died." << endl;
+
+        soundThread.join();
+
     }
 
     else if (_enemy->getHealth() == 0) {
