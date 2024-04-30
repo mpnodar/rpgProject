@@ -1,6 +1,9 @@
 #include <iostream>
 #include <random>
 #include "characters.h"
+#include <cstdlib>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -182,7 +185,13 @@ player::player(int _level, string _name) {
 
 
 
+string character::getClass() {
+    return charClass;
+}
 
+void character::setClass(string _class) {
+    charClass = _class;
+}
 
 int character::getHealth() {
     return currentHealth;
@@ -473,7 +482,7 @@ void character::restoreMagicka(int _magicka) {
     if (currentMagicka + _magicka <= maxMagicka) {
         setMagickaPotions(getMagickaPotions() - 1);
         setDefend(false);
-        currentHealth += _magicka;
+        currentMagicka += _magicka;
     }
     else if (currentMagicka + _magicka > maxMagicka) {
         setMagickaPotions(getMagickaPotions() - 1);
@@ -491,7 +500,7 @@ void character::restoreStamina(int _stamina) {
     if (currentStamina + _stamina > maxStamina) {
         setStaminaPotions(getStaminaPotions() - 1);
         setDefend(false);
-        currentStamina = _stamina;
+        currentStamina = maxStamina;
     }
 }
 
@@ -595,6 +604,8 @@ void player::manageInventory() {
     while (choice != 3) {
 
         inventoryItem* item;
+        system("cls");
+        displayFullData();
         openInventory();
 
         cout << "1. Use Item" << endl;
@@ -611,6 +622,7 @@ void player::manageInventory() {
             if (item->name == "Health Potions" && item->quantity > 0) {
                 item->quantity = item->quantity - 1;
                 restoreHealth(25);
+
             }
             else if (item->name == "Health Potions" && item->quantity <= 0) {
                 cout << "No Health Potions Left!";
@@ -659,6 +671,7 @@ void character::displayData() {
 void character::displayFullData() {
     cout << "----------------------" << endl;
     cout << name << endl;
+    cout << "\nClass: " << getClass() << endl;
     cout << "Level: " << level << endl << endl;
     cout << "Current XP: " << currentXp << endl;
     cout << "XP Required for Next Level: " << requiredXp << endl;

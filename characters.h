@@ -9,6 +9,7 @@ using namespace std;
 class character {
 protected:
     string name;
+    string charClass;
     int level;
     int maxHealth;
     int maxMagicka;
@@ -35,6 +36,10 @@ public:
 
     character();
     character(string _name, int _level);
+
+    void setClass(string);
+
+    string getClass();
 
     void openInventory();
 
@@ -123,6 +128,8 @@ public:
 
 class player : public character {
 
+
+
 public:
 
     player();
@@ -130,6 +137,7 @@ public:
     player(int _level, string name);
 
     void manageInventory();
+
 
 
     /* void attack(character&);*/

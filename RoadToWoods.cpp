@@ -5,7 +5,7 @@ RoadToWoods::RoadToWoods(GameMap* m) : Location(m)
 {
 	description = "Traveling along the bustling road you see a man on the side of the road begging for money.";
 
-	probabilityOfMonsterEncounter = 0.2;
+	probabilityOfMonsterEncounter = 1;
 
 	TalkToBegger* talkingBegger = new TalkToBegger();
 	actions.push_back(talkingBegger);

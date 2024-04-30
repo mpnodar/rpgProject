@@ -33,6 +33,7 @@ static void characterSelect(player& you_) {
 		you_.setMaxStamina(60);
 		you_.setStamina(60);
 		you_.setAttack(15);
+		you_.setClass("Warrior");
 
 		cout << "Please enter a name for your character: ";
 		cin >> name;
@@ -45,6 +46,7 @@ static void characterSelect(player& you_) {
 		you_.setMaxStamina(50);
 		you_.setStamina(50);
 		you_.setAttack(5);
+		you_.setClass("Mage");
 
 		cout << "Please enter a name for your character: ";
 		cin >> name;
@@ -59,6 +61,7 @@ static void characterSelect(player& you_) {
 		you_.setMaxStamina(50);
 		you_.setStamina(50);
 		you_.setAttack(9);
+		you_.setClass("Scout");
 
 		cout << "Please enter a name for your character: ";
 		cin >> name;

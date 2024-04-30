@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -101,7 +104,7 @@ public:
         }
 
         if (current != nullptr) {
-            cout << "Selected item at index " << index << ":" << endl;
+            cout << "Used " << current->name << endl;
             return current;
         }
         else {
@@ -128,6 +131,7 @@ public:
 
 
     void displayInventory() {
+        // std::system("cls");
         cout << "\n\n-----------------------\nInventory:" << endl;
         inventoryItem* current = head;
         int index = 1;

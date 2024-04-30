@@ -1,5 +1,22 @@
 #include "GameMap.h"
 
+
+/* int randintNearLevel(int target, int min, int max) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	int mean = target;
+	int stddev = (max - min) / 3;
+	stddev = stddev < 1 ? 1 : stddev;
+	std::normal_distribution<> distrib(mean, stddev);
+	int result;
+	do {
+		result = distrib(gen);
+	} while (result < min || result > max);
+	return result;
+} */
+
+
+
 GameMap::GameMap()
 {
 	locations["TownSquare"] = new TownSquare(this);
@@ -40,8 +57,10 @@ void GameMap::play(player* p)
 	locations["TownSquare"]->execLocation(p);
 }
 
-enemy* GameMap::getRandomMonster(std::string locationName)
-{
+enemy* GameMap::getRandomMonster(std::string locationName) {
+
+	int randLevel = battleSequence::randintNear(user->getLevel(), 1, (user->getLevel() + 20));
+
 	hashNode* monsterNode = HT->search(locationName);
 	if (monsterNode->getData().size() == 0) {
 		return nullptr;
@@ -50,18 +69,18 @@ enemy* GameMap::getRandomMonster(std::string locationName)
 		int randomNumber = rand() % monsterNode->getData().size();
 		std::string monster = monsterNode->getData()[randomNumber];
 		if (monster == "Goblin") {
-			enemy* m = new goblin(user->getLevel());
+			enemy* m = new goblin(randLevel);
 			return m;
 		}
 		else if (monster == "Orc") {
-			enemy* m = new orc(user->getLevel());
+			enemy* m = new orc(randLevel);
 			return m;
 		}
 		else if (monster == "Bandit") {
-			enemy* m = new bandit(user->getLevel());
+			enemy* m = new bandit(randLevel);
 			return m;
 		}
-		enemy* m = new wraith(user->getLevel());
+		enemy* m = new wraith(randLevel);
 		return m;
 	}
 	return nullptr;

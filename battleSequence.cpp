@@ -3,6 +3,8 @@
 #include <iostream>
 #include <random>
 #include <cstdlib>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -120,6 +122,8 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
     // Battle Loop
 
+
+
     while (_player->getHealth() > 0 && _enemy->getHealth() > 0 && _player->getFightingStatus() && _enemy->getFightingStatus()) {
 
         std::system("cls");
@@ -143,6 +147,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
 
         // Player Select Action
+
 
 
 
@@ -191,6 +196,8 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             }
         }      
 
+        this_thread::sleep_for(chrono::seconds(2));
+
 
         if (_player->getPoisoned() == true) {
             _player->setHealth(_player->getHealth() - 8);
@@ -235,7 +242,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         _enemy->displayData();
         _player->displayData();
     }
-
+    std::system("cls");
 
 
 
@@ -250,6 +257,9 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
         vector<string>lootItems;
         lootItems.push_back("Health Potions");
+        lootItems.push_back("Gold");
+        lootItems.push_back("Stamina Potions");
+        lootItems.push_back("Magicka Potions");
 
         cout << "You have defeated the " << _enemy->getName() << "!" << endl;
 
@@ -261,14 +271,36 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             _player->checkLevel();
         }
 
-        _player->getInventory().getItemByName(lootItems[0])->quantity += 1;
-        cout << "Acquired 1 Health Potion!" << endl;
+        int lootDrop = randint(1, 4);
+        int potionAmount = randintLow(1, 5);
+        int goldAmount = randintNear(_enemy->getLevel(), 10, 100);
+
+        switch (lootDrop) {
+        case 1:
+            _player->getInventory().getItemByName(lootItems[0])->quantity += potionAmount;
+            cout << "Acquired " << potionAmount << " Health Potions!" << endl;
+            break;
+        case 2:
+            _player->getInventory().getItemByName(lootItems[1])->quantity += goldAmount;
+            cout << "Acquired " << goldAmount << " gold!" << endl;
+            break;
+        case 3:
+            _player->getInventory().getItemByName(lootItems[2])->quantity += potionAmount;
+            cout << "Acquired " << potionAmount << " Stamina Potions!" << endl;
+            break;
+        case 4:
+            _player->getInventory().getItemByName(lootItems[3])->quantity += potionAmount;
+            cout << "Acquired " << potionAmount << " Magicka Potions!" << endl;
+            break;
+        }
 
         _player->displayFullData();
 
 
     }
 
+    this_thread::sleep_for(chrono::seconds(7));
+    std::system("cls");
     _player->setPoisoned(false);
 
 }
