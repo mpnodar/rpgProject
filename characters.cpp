@@ -19,7 +19,7 @@ character::character() {
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
     currentXp = 0;
-    requiredXp = 100 + level * 20;
+    requiredXp = 5 + level * 20;
     attackValue = false;
     defendValue = false;
     healthPotions = 3;

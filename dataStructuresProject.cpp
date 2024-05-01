@@ -119,6 +119,7 @@ int main() {
 		loadGameNoPointer(p);
 		break;
 	case 2:
+		system("cls");
 		characterSelect(p);
 		saveGameNoPointer(p);
 		break;
