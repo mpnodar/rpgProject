@@ -113,10 +113,10 @@ orc::orc(int _level) {
 wraith::wraith() {
     name = "Wraith";
     level = 20;
-    maxHealth = (70 + (level * 5));
-    maxStamina = (70 + (level * 5));
-    maxMagicka = (100 + (level * 5));
-    attackDamage = 25 + (level * 2);
+    maxHealth = (200 + (level * 5));
+    maxStamina = (200 + (level * 5));
+    maxMagicka = (200 + (level * 5));
+    attackDamage = 5 + (level);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -125,10 +125,10 @@ wraith::wraith() {
 wraith::wraith(int _level) {
     name = "Wraith";
     level = _level;
-    maxHealth = (70 + (level * 5));
-    maxStamina = (70 + (level * 5));
-    maxMagicka = (100 + (level * 5));
-    attackDamage = 25 + (level * 2);
+    maxHealth = (125 + (level * 5));
+    maxStamina = (125 + (level * 5));
+    maxMagicka = (125 + (level * 5));
+    attackDamage = 5 + (level);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
