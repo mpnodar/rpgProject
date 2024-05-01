@@ -16,6 +16,9 @@ OrcCamp::OrcCamp(GameMap* m) : Location(m)
 	attackMonster->description = "Join brawl";
 	enemy* monster = new orc(randLevel);
 	attackMonster->setEnemy(monster);
+	if (!gameMap->questDefeatOrcs->FoughtOrcs) {
+		attackMonster->isOrcQuest = true;
+	}
 	actions->push_back(attackMonster);
 
 	MoveTo* moveToPathThroughWoods = new MoveTo(m);

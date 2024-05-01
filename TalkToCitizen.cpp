@@ -14,6 +14,9 @@ ActionResponse TalkToCitizen::execute(player* p)
 		if (!gameMap->questDefeatOrcs->AcceptedQuest) {
 			gameMap->questDefeatOrcs->AcceptedQuest = true;
 		}
+		else if (!gameMap->questDefeatBeast->AcceptedQuest) {
+			gameMap->questDefeatBeast->AcceptedQuest = true;
+		}
 	}
 	return AR;
 }

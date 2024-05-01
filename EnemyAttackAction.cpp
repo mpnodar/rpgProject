@@ -24,7 +24,8 @@ ActionResponse EnemyAttackAction::execute(player* p)
 		return PlayerDied;
 	}
 	else if (monster->getHealth() <= 0) {
-		if (monster->getName() == "Orc") gameMap->questDefeatOrcs->FoughtOrcs = true;
+		if (isOrcQuest) gameMap->questDefeatOrcs->FoughtOrcs = true;
+		if (isBeastQuest) gameMap->questDefeatBeast->FoughtBeast = true;
 		return PlayerDefeatedEnemy;
 	}
 	else {

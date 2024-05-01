@@ -20,6 +20,11 @@
 GameMap::GameMap()
 {
 	questDefeatOrcs = new QuestDefeatOrcs();
+	questDefeatBeast = new QuestDefeatBeast();
+
+	//questDefeatBeast->AcceptedQuest = true;
+	//questDefeatBeast->FoughtBeast = true;
+	//questDefeatBeast->SpokeWithWoodsman = true;
 
 	locations["TownSquare"] = new TownSquare(this);
 	locations["Merchant"] = new Merchant(this);
@@ -52,6 +57,7 @@ GameMap::~GameMap()
 	delete locations["PathThroughWoods"];
 	delete HT;
 	delete questDefeatOrcs;
+	delete questDefeatBeast;
 }
 
 void GameMap::play(player* p)

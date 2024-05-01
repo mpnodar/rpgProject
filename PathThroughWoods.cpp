@@ -34,10 +34,12 @@ void PathThroughWoods::generateActions()
 	moveToShadyPeople->moveToLocation = "ShadyPeople";
 	actions->push_back(moveToShadyPeople);
 
-	MoveTo* moveToBeast = new MoveTo(gameMap);
-	moveToBeast->description = "Follow the path";
-	moveToBeast->moveToLocation = "Beast";
-	actions->push_back(moveToBeast);
-
+	if (gameMap->questDefeatBeast->SpokeWithWoodsman) {
+		MoveTo* moveToBeast = new MoveTo(gameMap);
+		moveToBeast->description = "Follow the path";
+		moveToBeast->moveToLocation = "Beast";
+		actions->push_back(moveToBeast);
+	}
+	
 	addGameMenu();
 }

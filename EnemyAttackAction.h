@@ -9,5 +9,7 @@ public:
 	EnemyAttackAction(GameMap* gm);
 	void setEnemy(enemy* e);
 	ActionResponse execute(player*) override;
+	bool isBeastQuest = false;
+	bool isOrcQuest = false;
 };
 

@@ -34,6 +34,7 @@ public:
 	gameMenu m;
 	enemy* getRandomMonster(std::string locationName);
 	QuestDefeatOrcs* questDefeatOrcs;
+	QuestDefeatBeast* questDefeatBeast;
 	player* user;
 };
 
