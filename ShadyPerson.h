@@ -3,6 +3,6 @@
 class ShadyPerson : public TalkingNPC
 {
 public:
-	ShadyPerson(std::string name);
+	ShadyPerson(std::string name, GameMap* gm);
 };
 

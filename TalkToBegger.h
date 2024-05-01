@@ -5,7 +5,7 @@
 class TalkToBegger : public Action
 {
 public:
-	TalkToBegger();
+	TalkToBegger(GameMap* gm);
 	ActionResponse execute(player* p) override;
 };
 

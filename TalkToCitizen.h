@@ -5,7 +5,7 @@
 class TalkToCitizen : public Action
 {
 public:
-	TalkToCitizen();
+	TalkToCitizen(GameMap* gm);
 	ActionResponse execute(player* p) override;
 };
 

@@ -1,12 +1,17 @@
 #include "TalkToWoodsman.h"
+#include "GameMap.h"
 
-TalkToWoodsman::TalkToWoodsman()
+TalkToWoodsman::TalkToWoodsman(GameMap* gm) : Action(gm)
 {
 	description = "Talk to woodsman";
 }
 
 ActionResponse TalkToWoodsman::execute(player* p)
 {
-	ManChoppingWood* mike = new ManChoppingWood("Mike the woodsman");
-	return mike->printDialogue(0);
+	ManChoppingWood* mike = new ManChoppingWood("Mike the woodsman", gameMap);
+	ActionResponse AR = mike->printDialogue(0);
+	if (AR == RecievedDirections) {
+		gameMap->questDefeatOrcs->SpokeWithWoodsman = true;
+	}
+	return AR;
 }

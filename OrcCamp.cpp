@@ -12,17 +12,20 @@ OrcCamp::OrcCamp(GameMap* m) : Location(m)
 
 	probabilityOfMonsterEncounter = 0.05;
 
-	EnemyAttackAction* attackMonster = new EnemyAttackAction();
+	EnemyAttackAction* attackMonster = new EnemyAttackAction(m);
 	attackMonster->description = "Join brawl";
 	enemy* monster = new orc(randLevel);
 	attackMonster->setEnemy(monster);
-	actions.push_back(attackMonster);
+	actions->push_back(attackMonster);
 
-	MoveTo* moveToPathThroughWoods = new MoveTo();
+	MoveTo* moveToPathThroughWoods = new MoveTo(m);
 	moveToPathThroughWoods->description = "Return to path";
 	moveToPathThroughWoods->moveToLocation = "PathThroughWoods";
-	moveToPathThroughWoods->gameMap = m;
-	actions.push_back(moveToPathThroughWoods);
+	actions->push_back(moveToPathThroughWoods);
 
 	addGameMenu();
+}
+
+void OrcCamp::generateActions()
+{
 }

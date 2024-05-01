@@ -150,6 +150,9 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="OrcCamp.cpp" />
     <ClCompile Include="PathThroughWoods.cpp" />
+    <ClCompile Include="QuestDefeatBeast.cpp" />
+    <ClCompile Include="QuestDefeatOrcs.cpp" />
+    <ClCompile Include="QuestHelpBeggar.cpp" />
     <ClCompile Include="RoadsideBeggar.cpp" />
     <ClCompile Include="RoadToWoods.cpp" />
     <ClCompile Include="ShadyPeople.cpp" />
@@ -186,6 +189,9 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="OrcCamp.h" />
     <ClInclude Include="PathThroughWoods.h" />
+    <ClInclude Include="QuestDefeatBeast.h" />
+    <ClInclude Include="QuestDefeatOrcs.h" />
+    <ClInclude Include="QuestHelpBeggar.h" />
     <ClInclude Include="RoadsideBeggar.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="RoadToWoods.h" />

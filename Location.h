@@ -12,14 +12,17 @@ class GameMap;
 class Location
 {
 private:
-	GameMenuAction menuAction;
+	GameMenuAction* menuAction;
 public:
 	GameMap* gameMap;
 	std::map<std::string, Location*> locations;
 	std::string description;
 	double probabilityOfMonsterEncounter;
-	std::vector<Action*> actions;
+	std::vector<Action*>* actions;
 	ActionResponse execLocation(player*);
 	Location(GameMap* m);
+	~Location();
 	void addGameMenu();
+	virtual void generateActions();
+	void clearActions();
 };

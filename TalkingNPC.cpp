@@ -1,5 +1,6 @@
 #include "TalkingNPC.h"
 #include <cstdlib>
+#include "GameMap.h"
 
 ActionResponse TalkingNPC::printDialogue(int currentDialogue)
 {
@@ -15,8 +16,9 @@ ActionResponse TalkingNPC::printDialogue(int currentDialogue)
 	return printDialogue(nextDialoguesIndex);
 }
 
-TalkingNPC::TalkingNPC(int treeSize, std::string npcName)
+TalkingNPC::TalkingNPC(int treeSize, std::string npcName, GameMap* gm)
 {
+	gameMap = gm;
 	dialogueTree = std::vector<DialogueNode*>(treeSize);
 	name = npcName;
 }

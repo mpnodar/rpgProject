@@ -4,6 +4,6 @@
 class ManChoppingWood : public TalkingNPC
 {
 public:
-	ManChoppingWood(std::string name);
+	ManChoppingWood(std::string name, GameMap* gm);
 };
 

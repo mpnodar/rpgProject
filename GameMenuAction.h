@@ -5,7 +5,7 @@
 class GameMenuAction : public Action
 {
 public:
-	GameMenuAction();
+	GameMenuAction(GameMap* gm);
 	ActionResponse execute(player* p) override;
 };
 

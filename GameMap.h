@@ -14,15 +14,18 @@
 #include "hashTable.h"
 #include "hashNode.h"
 #include "Armorer.h"
+#include "QuestDefeatBeast.h"
+#include "QuestDefeatOrcs.h"
+#include "QuestHelpBeggar.h"
 #include <random>
 
 class Location;
+class TalkingNPC;
 
 class GameMap
 {
 private:
 	hashTable* HT = new hashTable(3);
-	player* user;
 public:
 	std::map<std::string, Location*> locations;
 	GameMap();
@@ -30,5 +33,7 @@ public:
 	void play(player*);
 	gameMenu m;
 	enemy* getRandomMonster(std::string locationName);
+	QuestDefeatOrcs* questDefeatOrcs;
+	player* user;
 };
 

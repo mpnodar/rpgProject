@@ -4,7 +4,7 @@
 class TalkToWoodsman : public Action
 {
 public:
-	TalkToWoodsman();
+	TalkToWoodsman(GameMap* gm);
 	ActionResponse execute(player* p) override;
 };
 

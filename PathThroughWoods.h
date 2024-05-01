@@ -5,5 +5,6 @@ class PathThroughWoods : public Location
 {
 public:
 	PathThroughWoods(GameMap* m);
+	void generateActions() override;
 };
 

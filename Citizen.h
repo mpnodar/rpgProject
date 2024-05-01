@@ -3,6 +3,6 @@
 class Citizen : public TalkingNPC
 {
 public:
-	Citizen(std::string name);
+	Citizen(std::string name, GameMap* gm);
 };
 

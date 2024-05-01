@@ -6,5 +6,6 @@ class ShadyPeople : public Location
 {
 public:
 	ShadyPeople(GameMap* m);
+	void generateActions() override;
 };
 

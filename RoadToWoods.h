@@ -6,5 +6,6 @@ class RoadToWoods : public Location
 {
 public:
 	RoadToWoods(GameMap* m);
+	void generateActions() override;
 };
 

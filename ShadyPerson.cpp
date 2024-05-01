@@ -1,6 +1,6 @@
 #include "ShadyPerson.h"
 
-ShadyPerson::ShadyPerson(std::string name) : TalkingNPC(5, name)
+ShadyPerson::ShadyPerson(std::string name, GameMap* gm) : TalkingNPC(5, name, gm)
 {
 	dialogueTree[0] = new DialogueNode("Stop starin' and keep movin'.\n",
 		"1. What are you doing just sitting in the woods?\n2. I will not be told what to do!\n3. Leave.\n",

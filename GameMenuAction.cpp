@@ -1,5 +1,7 @@
 #include "GameMenuAction.h"
-GameMenuAction::GameMenuAction() {
+
+GameMenuAction::GameMenuAction(GameMap* gm) : Action(gm)
+{
 	description = "Open game menu";
 }
 

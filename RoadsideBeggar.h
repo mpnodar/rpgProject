@@ -4,6 +4,6 @@
 class RoadsideBeggar : public TalkingNPC
 {
 public:
-	RoadsideBeggar(std::string name);
+	RoadsideBeggar(std::string name , GameMap* gm);
 };
 

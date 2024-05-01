@@ -3,6 +3,11 @@
 #include <chrono>
 #include <thread>
 #include "EnemyAttackAction.h"
+
+MoveTo::MoveTo(GameMap* gm) : Action(gm)
+{
+}
+
 ActionResponse MoveTo::execute(player* p)
 {
 	int encounterChance = gameMap->locations[moveToLocation]->probabilityOfMonsterEncounter * 100;
@@ -13,7 +18,7 @@ ActionResponse MoveTo::execute(player* p)
 		enemy* monster = gameMap->getRandomMonster(moveToLocation);
 		if (monster != nullptr) {
 			ActionResponse AR;
-			EnemyAttackAction attackAction;
+			EnemyAttackAction attackAction(gameMap);
 			attackAction.setEnemy(monster);
 			AR = attackAction.execute(p);
 			delete monster;

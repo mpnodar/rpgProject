@@ -1,5 +1,5 @@
 #pragma once
-enum ActionResponse{
+enum ActionResponse {
 	Ended = -1,
 	GaveGold = -2,
 	Attack = -3,
@@ -16,5 +16,6 @@ enum ActionResponse{
 	PlayerDied = -14,
 	PlayerDefeatedEnemy = -15,
 	PlayerFled = -16,
-	LeftShop = -17
+	LeftShop = -17,
+	RecievedDirections = -18
 };

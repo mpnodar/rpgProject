@@ -1,6 +1,6 @@
 #include "RoadsideBeggar.h"
 
-RoadsideBeggar::RoadsideBeggar(std::string name) : TalkingNPC(6, name)
+RoadsideBeggar::RoadsideBeggar(std::string name, GameMap* gm) : TalkingNPC(6, name, gm)
 {
 	dialogueTree[0] = new DialogueNode("Spare some change for an old beggar?\n",
 		"1. Here is all I can spare.\n2. Hit the Road.\n3. Sorry I'm all out of gold.\n", 

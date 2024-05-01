@@ -19,6 +19,8 @@
 
 GameMap::GameMap()
 {
+	questDefeatOrcs = new QuestDefeatOrcs();
+
 	locations["TownSquare"] = new TownSquare(this);
 	locations["Merchant"] = new Merchant(this);
 	locations["Armorer"] = new Armorer(this);
@@ -31,11 +33,11 @@ GameMap::GameMap()
 	HT->add(new hashNode("TownSquare", {}));
 	HT->add(new hashNode("Merchant", {"Bandit"}));
 	HT->add(new hashNode("Armorer", {}));
-	HT->add(new hashNode("RoadToWoods", {"Goblin", "Orc", "Bandit"}));
+	HT->add(new hashNode("RoadToWoods", {"Goblin", "Orc"}));
 	HT->add(new hashNode("ShadyPeople", {"Bandit"}));
 	HT->add(new hashNode("Beast", {}));
 	HT->add(new hashNode("OrcCamp", {"Orc"}));
-	HT->add(new hashNode("PathThroughWoods", {"Goblin", "Orc"}));
+	HT->add(new hashNode("PathThroughWoods", {"Goblin", "Orc", "Bandit" }));
 }
 
 GameMap::~GameMap()
@@ -49,6 +51,7 @@ GameMap::~GameMap()
 	delete locations["OrcCamp"];
 	delete locations["PathThroughWoods"];
 	delete HT;
+	delete questDefeatOrcs;
 }
 
 void GameMap::play(player* p)

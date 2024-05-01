@@ -2,6 +2,10 @@
 #include <chrono>
 #include <thread>
 
+EnemyAttackAction::EnemyAttackAction(GameMap* gm) : Action(gm)
+{
+}
+
 void EnemyAttackAction::setEnemy(enemy* e)
 {
 	monster = e;
@@ -20,6 +24,7 @@ ActionResponse EnemyAttackAction::execute(player* p)
 		return PlayerDied;
 	}
 	else if (monster->getHealth() <= 0) {
+		if (monster->getName() == "Orc") gameMap->questDefeatOrcs->FoughtOrcs = true;
 		return PlayerDefeatedEnemy;
 	}
 	else {

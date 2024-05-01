@@ -5,5 +5,6 @@ class Merchant : public Location
 {
 public:
 	Merchant(GameMap* m);
+	void generateActions() override;
 };
 

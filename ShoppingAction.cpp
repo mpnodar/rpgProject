@@ -1,5 +1,9 @@
 #include "ShoppingAction.h"
 
+ShoppingAction::ShoppingAction(GameMap* gm) : Action(gm)
+{
+}
+
 void ShoppingAction::setShop(shop* s)
 {
 	store = s;

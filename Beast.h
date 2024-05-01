@@ -5,5 +5,6 @@ class Beast : public Location
 {
 public:
 	Beast(GameMap* m);
+	void generateActions() override;
 };
 

@@ -6,20 +6,23 @@ ShadyPeople::ShadyPeople(GameMap* m) : Location (m)
 
 	probabilityOfMonsterEncounter = 0.1;
 
-	TalkToShadyPerson* talkShady = new TalkToShadyPerson();
-	actions.push_back(talkShady);
+	TalkToShadyPerson* talkShady = new TalkToShadyPerson(m);
+	actions->push_back(talkShady);
 
-	MoveTo* moveToPathThroughWoods = new MoveTo();
+	MoveTo* moveToPathThroughWoods = new MoveTo(m);
 	moveToPathThroughWoods->description = "Move back to path";
 	moveToPathThroughWoods->moveToLocation = "PathThroughWoods";
-	moveToPathThroughWoods->gameMap = m;
-	actions.push_back(moveToPathThroughWoods);
+	actions->push_back(moveToPathThroughWoods);
 
-	MoveTo* moveToTownSquare = new MoveTo();
+	MoveTo* moveToTownSquare = new MoveTo(m);
 	moveToTownSquare->description = "Return to town";
 	moveToTownSquare->moveToLocation = "TownSquare";
-	moveToTownSquare->gameMap = m;
-	actions.push_back(moveToTownSquare);
+	actions->push_back(moveToTownSquare);
 
 	addGameMenu();
+}
+
+void ShadyPeople::generateActions()
+{
+
 }

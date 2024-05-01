@@ -8,5 +8,6 @@ class TownSquare : public Location
 {
 public:
 	TownSquare(GameMap* m);
+	void generateActions() override;
 };
 

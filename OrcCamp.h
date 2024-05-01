@@ -5,5 +5,6 @@ class OrcCamp : public Location
 {
 public:
 	OrcCamp(GameMap* m);
+	void generateActions() override;
 };
 

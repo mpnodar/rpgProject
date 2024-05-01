@@ -8,18 +8,21 @@ Armorer::Armorer(GameMap* m) : Location(m) {
 
 	probabilityOfMonsterEncounter = 0;
 
-	ShoppingAction* buy = new ShoppingAction();
+	ShoppingAction* buy = new ShoppingAction(m);
 	buy->description = "Browse goods";
 	shop* store = new shop();
 	store->isArmorer = true;
 	buy->setShop(store);
-	actions.push_back(buy);
+	actions->push_back(buy);
 
-	MoveTo* moveToTownSquare = new MoveTo();
+	MoveTo* moveToTownSquare = new MoveTo(m);
 	moveToTownSquare->description = "Leave";
 	moveToTownSquare->moveToLocation = "TownSquare";
-	moveToTownSquare->gameMap = m;
-	actions.push_back(moveToTownSquare);
+	actions->push_back(moveToTownSquare);
 
 	addGameMenu();
+}
+
+void Armorer::generateActions()
+{
 }

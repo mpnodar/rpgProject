@@ -5,5 +5,6 @@ class Armorer : public Location
 {
 public:
 	Armorer(GameMap* m);
+	void generateActions() override;
 };
 
