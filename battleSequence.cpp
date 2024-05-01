@@ -7,7 +7,6 @@
 #include <thread>
 #include <Windows.h>
 #include <mmsystem.h>
-#include <iostream>
 
 
 using namespace std;
@@ -17,9 +16,37 @@ using namespace std;
 
 // Death Sound
 
+/* void playAttackSound() {
+    PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/attack.wav"), NULL, SND_FILENAME | SND_SYNC);
+} */
+
 void playDeathSound() {
     PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/mixkit-arcade-retro-game-over-213.wav"), NULL, SND_FILENAME | SND_SYNC);
 }
+
+
+void playBackgroundMusic() {
+    PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/ConnorMusic.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+}
+
+void playWinSound() {
+    PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/wonBattle.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_SYNC);
+
+}
+
+void startBattleMusic() {
+    thread musicThread(playBackgroundMusic);
+    musicThread.detach();
+    if (musicThread.joinable()) {
+        musicThread.join();
+    }
+}
+
+void stopBattleMusic() {
+    PlaySound(NULL, 0, 0);
+}
+
+
 
 
 
@@ -177,6 +204,10 @@ int battleSequence::displaySpells() {
 
 void battleSequence::battle(player* _player, enemy* _enemy) {
 
+    // Play Music
+
+    startBattleMusic();
+
     // Set Fighting Status to True
 
     _player->setFightingStatus(true);
@@ -216,7 +247,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         // Player Select Action
 
 
-
+        thread sound;
 
         switch (displayBattleOptions()) {
         case 1:
@@ -255,6 +286,9 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             break;
         }
 
+        if (sound.joinable()) {
+            sound.join();
+        }
 
         // Enemy Select Action
 
@@ -352,6 +386,9 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         }
 
         
+        if (sound.joinable()) {
+            sound.join();
+        }
 
       
     }
@@ -368,12 +405,13 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
     std::system("cls");
 
 
+    stopBattleMusic();
 
 
     // Check Who Has Died
 
     if (_player->getHealth() == 0) {
-        std::thread soundThread(playDeathSound);
+        thread soundThread(playDeathSound);
 
 
         cout << "\nYou have died." << endl;
@@ -389,6 +427,8 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         lootItems.push_back("Gold");
         lootItems.push_back("Stamina Potions");
         lootItems.push_back("Magicka Potions");
+
+        thread soundThreadWin(playWinSound);
 
         cout << "You have defeated the " << _enemy->getName() << "!" << endl;
 
@@ -426,7 +466,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
         _player->displayFullData();
 
-
+        soundThreadWin.join();
     }
 
     if (!playerRun) {

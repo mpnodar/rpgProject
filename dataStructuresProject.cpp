@@ -11,7 +11,31 @@
 #include "GameMap.h"
 #include "gameMenu.h"
 #include "characters.h"
+#include <iostream>
 #include <random>
+#include <cstdlib>
+#include <chrono>
+#include <thread>
+#include <Windows.h>
+#include <mmsystem.h>
+
+#pragma comment (lib, "winmm.lib")
+
+using namespace std;
+
+
+void selectSound() {
+	PlaySound(TEXT("C:/Users/mpnod/OneDrive/Documents/Classes - Spring 2024/PlayerSelect.wav"), NULL, SND_FILENAME | SND_SYNC);
+}
+
+void playSelectSound() {
+	thread soundThread(selectSound);
+	soundThread.detach();
+	if (soundThread.joinable()) {
+		soundThread.join();
+	}
+}
+
 
 
 static void characterSelect(player& you_) {
@@ -27,6 +51,7 @@ static void characterSelect(player& you_) {
 
 	switch (input) {
 	case 1:
+		playSelectSound();
 		you_.setMaxHealth(70);
 		you_.setHealth(70);
 		you_.setMaxMagicka(30);
@@ -40,6 +65,7 @@ static void characterSelect(player& you_) {
 		you_.setName(name);
 		break;
 	case 2:
+		playSelectSound();
 		you_.setMaxHealth(40);
 		you_.setHealth(40);
 		you_.setMaxMagicka(90);
@@ -55,6 +81,7 @@ static void characterSelect(player& you_) {
 
 
 	case 3:
+		playSelectSound();
 		you_.setMaxHealth(55);
 		you_.setHealth(55);
 		you_.setMaxMagicka(30);
@@ -65,6 +92,7 @@ static void characterSelect(player& you_) {
 
 		cout << "Please enter a name for your character: ";
 		cin >> name;
+		playSelectSound();
 		you_.setName(name);
 		break;
 

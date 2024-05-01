@@ -307,30 +307,43 @@ void character::magicAttack(character& defender) {
 
     if ((((defender.getDefend()) != true) || (defender.getStamina() <= 0)) && (getMagicka() > 0) ) {
 
+        // Regular attack
+
         if (criticalHit < 5) {
             cout << "\n" << name << " uses fireball!\n" << endl;
-            defender.setHealth(defender.getHealth() - getAttackDamage()*3);
+            defender.setHealth(defender.getHealth() - getAttackDamage()*2);
             setMagicka(getMagicka() - 20);
         }
+
+        // Critical Attack
+
         else if (criticalHit == 5) {
             cout << "\n" << name << " critical attacks with fireball!\n" << endl;
-            defender.setHealth(defender.getHealth() - getAttackDamage() * 5);
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 4);
 
             setMagicka(getMagicka() - 20);
         }
     }
+
+
     else if (((defender.getDefend() == true) && (defender.getStamina() > 0)) && (getMagicka() > 0)) {
+
+        // Defending
+
         if (criticalHit < 5) {
             cout << "\n" << name << " attacks with fireball, but " << defender.getName() << " tries to defend!\n" << endl;
-            defender.setStamina(defender.getStamina() - getAttackDamage());
-            defender.setHealth(defender.getHealth() - getAttackDamage()*2);
+            defender.setStamina(defender.getStamina() - getAttackDamage()*2);
+            defender.setHealth(defender.getHealth() - getAttackDamage());
 
             setMagicka(getMagicka() - 20);
         }
+
+        // Defending Critical Attack
+
         else if (criticalHit == 5) {
             cout << "\n" << name << " critical attacks with fireball! " << defender.getName() << " tries to defend!\n" << endl;
-            defender.setStamina(defender.getStamina() - getAttackDamage() * 2);
-            defender.setHealth(defender.getHealth() - getAttackDamage() * 4);
+            defender.setStamina(defender.getStamina() - getAttackDamage() * 4);
+            defender.setHealth(defender.getHealth() - getAttackDamage() * 2);
 
             setMagicka(getMagicka() - 20);
         }

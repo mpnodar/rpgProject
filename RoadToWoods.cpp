@@ -17,7 +17,7 @@ void RoadToWoods::generateActions()
 		description = "Traveling along the bustling road you fondly remember the man who used to beg by the side of the road.";
 	}
 
-	probabilityOfMonsterEncounter = 0.2;
+	probabilityOfMonsterEncounter = 1;
 
 	if (!gameMap->questHelpBeggar->QuestCompleted) {
 		TalkToBegger* talkingBegger = new TalkToBegger(gameMap);
