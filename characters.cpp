@@ -185,6 +185,13 @@ player::player(int _level, string _name) {
 
 }
 
+int character::getGold() {
+    return gold;
+}
+
+void character::setGold(int gold_) {
+    gold = gold_;
+}
 
 
 string character::getClass() {

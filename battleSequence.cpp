@@ -412,6 +412,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
         case 2:
             _player->getInventory().getItemByName(lootItems[1])->quantity += goldAmount;
             cout << "Acquired " << goldAmount << " gold!" << endl;
+            _player->setGold(_player->getGold() + goldAmount);
             break;
         case 3:
             _player->getInventory().getItemByName(lootItems[2])->quantity += potionAmount;

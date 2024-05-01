@@ -30,6 +30,7 @@ protected:
     bool poisoned;
     bool healing;
     bool staminaHealing;
+    int gold = 100;
 
 
 public:
@@ -38,6 +39,10 @@ public:
 
     character();
     character(string _name, int _level);
+
+    int getGold();
+
+    void setGold(int);
 
     void setClass(string);
 
