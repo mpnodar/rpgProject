@@ -1,6 +1,7 @@
 #include "TalkToShadyPerson.h"
 #include "EnemyAttackAction.h"
 #include "characters.h"
+#include "GameMap.h"
 
 TalkToShadyPerson::TalkToShadyPerson(GameMap* gm) : Action(gm)
 {
@@ -14,12 +15,16 @@ ActionResponse TalkToShadyPerson::execute(player* p)
 	if (response == Attack) {
 		enemy* shady = new bandit(p->getLevel());
 		EnemyAttackAction* Attack = new EnemyAttackAction(gameMap);
-
+		Attack->isBeggarQuest = gameMap->questHelpBeggar->AcceptedQuest && !gameMap->questHelpBeggar->FoughtShadyPeople;
 		Attack->setEnemy(shady);
 		response = Attack->execute(p);
 		
 		delete shady;
 		delete Attack;
+	}
+	else if (response == GaveGold) {
+		p->getInventory().getItemByName("Gold")->quantity += 500;
+		gameMap->questHelpBeggar->RecievedMoney = true;
 	}
 	return response;
 }

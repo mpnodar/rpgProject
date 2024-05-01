@@ -23,11 +23,12 @@ Citizen::Citizen(std::string name, GameMap* gm) : TalkingNPC(4, name, gm)
 			{ Ended });
 	}
 	else if (!gm->questDefeatOrcs->QuestCompleted && gm->questDefeatOrcs->FoughtOrcs) {
-		dialogueTree[0] = new DialogueNode("Thank you for helping me! Here is 100 gp as your reward.\n",
+		dialogueTree[0] = new DialogueNode("Thank you for helping me! Here is 100 gp and a health potion as your reward.\n",
 			"1. Accept\n",
 			{ Ended });
 		gm->questDefeatOrcs->QuestCompleted = true;
 		gm->user->getInventory().getItemByName("Gold")->quantity += 100;
+		gm->user->getInventory().getItemByName("Health Potions")->quantity += 1;
 	}
 
 

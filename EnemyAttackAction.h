@@ -11,5 +11,6 @@ public:
 	ActionResponse execute(player*) override;
 	bool isBeastQuest = false;
 	bool isOrcQuest = false;
+	bool isBeggarQuest = false;
 };
 

@@ -35,6 +35,7 @@ public:
 	enemy* getRandomMonster(std::string locationName);
 	QuestDefeatOrcs* questDefeatOrcs;
 	QuestDefeatBeast* questDefeatBeast;
+	QuestHelpBeggar* questHelpBeggar;
 	player* user;
 };
 

@@ -21,10 +21,15 @@ GameMap::GameMap()
 {
 	questDefeatOrcs = new QuestDefeatOrcs();
 	questDefeatBeast = new QuestDefeatBeast();
+	questHelpBeggar = new QuestHelpBeggar();
 
 	//questDefeatBeast->AcceptedQuest = true;
 	//questDefeatBeast->FoughtBeast = true;
 	//questDefeatBeast->SpokeWithWoodsman = true;
+
+	/*questHelpBeggar->AcceptedQuest = true;
+	questHelpBeggar->FoughtShadyPeople = true;
+	questHelpBeggar->RecievedMoney = true;*/
 
 	locations["TownSquare"] = new TownSquare(this);
 	locations["Merchant"] = new Merchant(this);
@@ -58,6 +63,7 @@ GameMap::~GameMap()
 	delete HT;
 	delete questDefeatOrcs;
 	delete questDefeatBeast;
+	delete questHelpBeggar;
 }
 
 void GameMap::play(player* p)

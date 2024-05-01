@@ -26,6 +26,7 @@ ActionResponse EnemyAttackAction::execute(player* p)
 	else if (monster->getHealth() <= 0) {
 		if (isOrcQuest) gameMap->questDefeatOrcs->FoughtOrcs = true;
 		if (isBeastQuest) gameMap->questDefeatBeast->FoughtBeast = true;
+		if (isBeggarQuest) gameMap->questHelpBeggar->FoughtShadyPeople = true;
 		return PlayerDefeatedEnemy;
 	}
 	else {
