@@ -14,7 +14,7 @@ character::character() {
     maxHealth = (40 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 5 + (level * 2);
+    attackDamage = 50000 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
@@ -28,7 +28,7 @@ character::character() {
     poisoned = false;
     healing = false;
     currentWeight = 9;
-    weightCapacity = 10 + (level * 5);
+    weightCapacity = 15;
 }
 
 character::character(string _name, int _level) {
@@ -51,7 +51,7 @@ character::character(string _name, int _level) {
     poisoned = false;
     healing = false;
     currentWeight = 9;
-    weightCapacity = 10 + (level * 5);
+    weightCapacity = 15;
 }
 
 enemy::enemy() {
@@ -237,6 +237,8 @@ void character::setHealth(int _health) {
 int character::getAttackDamage() {
     return attackDamage;
 }
+
+
 
 // Standard Attack
 
@@ -707,6 +709,7 @@ void character::levelUp() {
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
+    weightCapacity += 2;
 }
 
 void character::checkLevel() {

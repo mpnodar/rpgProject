@@ -15,7 +15,7 @@ using namespace std;
 
 static void saveGamePointerBattle(player* p) {
     ofstream saveFile("gameData.txt");
-    saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealth() << p->getStamina() << p->getMagicka() << p->getAttackDamage() << endl;
+    saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << "\n" << p->getMaxHealth() << "\n" << p->getMaxStamina() << "\n" << p->getMaxMagicka() << "\n" << p->getAttack() << "\n" << p->getCurrentXP() << "\n" << p->getCurrentWeight() << "\n" << p->getMagickaPotions() << "\n" << p->getStaminaPotions() << "\n" << p->getMaxWeight() << endl;
     saveFile.close();
 }
 
