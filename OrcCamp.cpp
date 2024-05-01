@@ -5,7 +5,7 @@
 OrcCamp::OrcCamp(GameMap* m) : Location(m)
 {
 
-	int randLevel = battleSequence::randintNear(10, 1, 20);
+	int randLevel = battleSequence::randintNear(3, 1, 5);
 
 
 	description = "Wandering through the woods you stumble upon a camp of orcs. There seems to be a fight between two orcs.";

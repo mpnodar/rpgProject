@@ -325,7 +325,7 @@ void shop::misc() {
 
 
 void shop::displayGoods(player* _player) {
-
+    gold = _player->getGold();
     while (val2 == true) {
 
         int select;
@@ -372,6 +372,7 @@ void shop::displayGoods(player* _player) {
                 val = false;
                 val2 = false;
                 val3 = false;
+                _player->getInventory().getItemByName("Gold")->quantity = gold;
                 break;
 
             default:

@@ -48,19 +48,19 @@ static void loadGamePointer(player* p) {
 		}
 
 		else if (lineCount == 6) {
-			p->setHealth(line)
+			p->setHealth(stoi(line));
 		}
 
 		else if (lineCount == 7) {
-			p->setStamina(line);
+			p->setStamina(stoi(line));
 		}
 
 		else if (lineCount == 8) {
-			p->setMagicka(line);
+			p->setMagicka(stoi(line));
 		}
 
 		else if (lineCount == 9) {
-			p->setAttackDamage(line);
+			p->setAttack(stoi(line));
 		}
 
 	}
@@ -115,11 +115,11 @@ static void loadGameNoPointer(player& p) {
 		}
 
 		else if (lineCount == 8) {
-			p.setMagicka(stoi(line))
+			p.setMagicka(stoi(line));
 		}
 
 		else if (lineCount == 9) {
-			p.setAttackDamage(stoi(line))
+			p.setAttack(stoi(line));
 		}
 	}
 

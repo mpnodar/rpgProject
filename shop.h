@@ -3,7 +3,7 @@
 class shop {
 private:
 	bool val = true, val2 = true, val3 = true;
-	int gold = 200;
+	int gold = 0;
 	void weapons();
 	void armor();
 	void potions();

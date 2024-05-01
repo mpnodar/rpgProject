@@ -10,7 +10,7 @@ using namespace std;
 
 static void saveGamePointerMenu(player* p) {
 	ofstream saveFile("gameData.txt");
-	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << endl;
+	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << "\n" << p->getHealth() << "\n" << p->getStamina() << "\n" << p->getMagicka() << "\n" << p->getAttack() << endl;
 	saveFile.close();
 }
 
@@ -22,7 +22,7 @@ void gameMenu::quitGame() {
 
 ActionResponse gameMenu::menu(player* you) {
 
-    ActionResponse AR;
+    ActionResponse AR = NotSet;
     int input;
     shop s;
     battleSequence b;
@@ -45,13 +45,13 @@ ActionResponse gameMenu::menu(player* you) {
             break;
 
         case 3:
-            // saveGamePointerMenu(you);
+            saveGamePointerMenu(you);
             break;
 
-        case 5:
+        /*case 5:
             b.randomBattle(you);
             AR = RandomBattle;
-            break;
+            break;*/
 
         case 4:
             quitGame();
