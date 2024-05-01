@@ -7,13 +7,6 @@
 
 using namespace std;
 
-void gameMenu::returnToGame() {
-    cout << "Return to Game..." << endl;
-}
-
-void gameMenu::talkToSomeone() {
-    cout << "Talk to someone..." << endl;
-}
 
 void gameMenu::quitGame() {
     cout << "Exiting game..." << endl;
@@ -29,13 +22,13 @@ ActionResponse gameMenu::menu(player* you) {
 
     do {
         std::system("cls");
-        cout << "\n1. Return to Game\n2. Enter Battle\n3. Manage Inventory\n4. Enter Shop\n5. Talk to Someone\n6. Quit Game\n" << endl;
+        cout << "\n1. Return to Game\n3. Manage Inventory\n6. Quit Game\n" << endl;
         cin >> input;
 
         switch (input) {
 
         case 1:
-            returnToGame();
+            //returnToGame();
             AR = ReturnToGame;
             break;
 
@@ -50,14 +43,9 @@ ActionResponse gameMenu::menu(player* you) {
             break;
 
         case 4:
-            s.displayGoods(you);
-            AR = DisplayGoods;
+            b.randomBattle(you);
+            AR = RandomBattle;
             break;
-
-        case 5:
-            talkToSomeone();
-            AR = TalkToSomeone;
-            break; 
 
         case 6:
             quitGame();

@@ -7,6 +7,7 @@
 #include <thread>
 #include <Windows.h>
 #include <mmsystem.h>
+#include <fstream>
 
 
 
@@ -486,6 +487,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
 
         _player->displayFullData();
+
 
         soundThreadWin.join();
     }

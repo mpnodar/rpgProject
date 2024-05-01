@@ -189,6 +189,10 @@ player::player(int _level, string _name) {
 
 }
 
+void character::setLevel(int _level) {
+    level = _level;
+}
+
 int character::getCurrentWeight() {
     return currentWeight;
 }

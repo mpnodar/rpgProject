@@ -4,8 +4,8 @@
 
 class gameMenu {
 public:
-	void returnToGame();
-	void talkToSomeone();
+	//void returnToGame();
+	//void talkToSomeone();
 	void quitGame();
 	ActionResponse menu(player*);
 };

@@ -18,6 +18,8 @@
 #include <thread>
 #include <Windows.h>
 #include <mmsystem.h>
+#include <fstream>
+#include "saveFunctions.cpp"
 
 #pragma comment (lib, "winmm.lib")
 
@@ -102,19 +104,36 @@ static void characterSelect(player& you_) {
 }
 
 
+
+
 int main() {
 
-	srand(time(0));
 
+	srand(time(0));
 	player p;
 
-	characterSelect(p);
+	int input;
+	cout << "Welcome! Would you like to start a new game or continue?\n\n1. Continue\n2. New Game" << endl;
+	cin >> input;
+
+	switch (input) {
+	case 1:
+		loadGame(p);
+		break;
+	case 2:
+		characterSelect(p);
+		saveGame(p);
+		break;
+	}
+
 
 	/*gameMenu menu;
 	menu.menu(&p);*/
 
 	GameMap map;
 	map.play(&p); 
+
+	saveGame(p);
 
 	/*RoadsideBeggar jim("Jim");
 	jim.printDialogue(0);*/

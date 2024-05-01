@@ -42,6 +42,8 @@ public:
     character();
     character(string _name, int _level);
 
+
+
     int getGold();
 
     void setGold(int);
@@ -114,6 +116,7 @@ public:
 
     int getCurrentXP();
     void setCurrentXP(int newXp);
+    void setLevel(int);
     int getLevel();
     int getRequiredXP();
     void setRequiredXP(int newXp);
