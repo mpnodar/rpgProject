@@ -3,3 +3,7 @@ Matthew
 Warrior
 100
 3
+70
+60
+35
+7

@@ -1,9 +1,9 @@
-#include "characters.h"
+#include "characters.cpp"
 
-void saveGamePointer(player*);
+static void saveGamePointer(player*);
 
-void loadGamePointer(player*);
+static void loadGamePointer(player*);
 
-void saveGameNoPointer(player&);
+static void loadGameNoPointer(player&);
 
-void saveGameNoPointer(player&);
+static void saveGameNoPointer(player&);

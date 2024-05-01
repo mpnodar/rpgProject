@@ -1,15 +1,14 @@
 #include <fstream>
 #include <iostream>
-#include "saveFunctions.h"
 
 
-void saveGamePointer(player* p) {
+static void saveGamePointer(player* p) {
 	ofstream saveFile("gameData.txt");
-	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << endl;
+	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealth() << p->getStamina() << p->getMagicka() << p->getAttackDamage() << endl;
 	saveFile.close();
 }
 
-void loadGamePointer(player* p) {
+static void loadGamePointer(player* p) {
 	ifstream saveFile("gameData.txt");
 
 	string line;
@@ -48,18 +47,27 @@ void loadGamePointer(player* p) {
 			p->setHealthPotions(stoi(line));
 		}
 
+		else if (lineCount == 6) {
+			p->setHealth(line)
+		}
+
+		else if (lineCount == 7) {
+			p->setStamina(line);
+		}
+
+		else if (lineCount == 8) {
+			p->setMagicka(line);
+		}
+
+		else if (lineCount == 9) {
+			p->setAttackDamage(line);
+		}
 
 	}
 
 }
 
-void saveGameNoPointer(player& p) {
-	ofstream saveFile("gameData.txt");
-	saveFile << p.getName() << "\n" << p.getLevel() << "\n" << p.getClass() << "\n" << p.getGold() << "\n" << p.getHealthPotions() << endl;
-	saveFile.close();
-}
-
-void loadGameNoPointer(player& p) {
+static void loadGameNoPointer(player& p) {
 	ifstream saveFile("gameData.txt");
 
 	string line;
@@ -98,7 +106,28 @@ void loadGameNoPointer(player& p) {
 			p.setHealthPotions(stoi(line));
 		}
 
+		else if (lineCount == 6) {
+			p.setHealth(stoi(line));
+		}
 
+		else if (lineCount == 7) {
+			p.setStamina(stoi(line));
+		}
+
+		else if (lineCount == 8) {
+			p.setMagicka(stoi(line))
+		}
+
+		else if (lineCount == 9) {
+			p.setAttackDamage(stoi(line))
+		}
 	}
 
 }
+
+static void saveGameNoPointer(player& p) {
+	ofstream saveFile("gameData.txt");
+	saveFile << p.getName() << "\n" << p.getLevel() << "\n" << p.getClass() << "\n" << p.getGold() << "\n" << p.getHealthPotions() << "\n" << p.getHealth() << "\n" << p.getStamina() << "\n" << p.getMagicka() << "\n" << p.getAttackDamage() << endl;
+	saveFile.close();
+}
+

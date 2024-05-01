@@ -13,7 +13,11 @@
 
 using namespace std;
 
-// saveFunction saveBattle;
+static void saveGamePointerBattle(player* p) {
+    ofstream saveFile("gameData.txt");
+    saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealth() << p->getStamina() << p->getMagicka() << p->getAttackDamage() << endl;
+    saveFile.close();
+}
 
 #pragma comment (lib, "winmm.lib")
 
@@ -492,7 +496,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
         _player->displayFullData();
 
-        // saveBattle.saveGamePointer(_player);
+        saveGamePointerBattle(_player);
 
         soundThreadWin.join();
     }

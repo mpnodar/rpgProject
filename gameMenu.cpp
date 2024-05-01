@@ -3,9 +3,16 @@
 #include "shop.h"
 #include "battleSequence.h"
 #include <cstdlib>
+#include <fstream>
 
 
 using namespace std;
+
+static void saveGamePointerMenu(player* p) {
+	ofstream saveFile("gameData.txt");
+	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << endl;
+	saveFile.close();
+}
 
 
 void gameMenu::quitGame() {
@@ -38,7 +45,7 @@ ActionResponse gameMenu::menu(player* you) {
             break;
 
         case 3:
-            //saveGamePointer(you);
+            // saveGamePointerMenu(you);
             break;
 
         case 5:

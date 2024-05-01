@@ -131,7 +131,7 @@ int main() {
 	GameMap map;
 	map.play(&p); 
 
-	saveGameNoPointer(p);
+	//saveGameNoPointer(p);
 
 	/*RoadsideBeggar jim("Jim");
 	jim.printDialogue(0);*/
