@@ -8,8 +8,7 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include <fstream>
-
-
+#include "QuestDefeatOrcs.h"
 
 using namespace std;
 
@@ -18,6 +17,8 @@ static void saveGamePointerBattle(player* p) {
     saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << "\n" << p->getMaxHealth() << "\n" << p->getMaxStamina() << "\n" << p->getMaxMagicka() << "\n" << p->getAttack() << "\n" << p->getCurrentXP() << "\n" << p->getCurrentWeight() << "\n" << p->getMagickaPotions() << "\n" << p->getStaminaPotions() << "\n" << p->getMaxWeight() << endl;
     saveFile.close();
 }
+
+
 
 #pragma comment (lib, "winmm.lib")
 
@@ -459,7 +460,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             if ((_player->getCurrentWeight() + potionAmount) <= _player->getMaxWeight()) {
                 _player->getInventory().getItemByName(lootItems[0])->quantity += potionAmount;
                 cout << "Acquired " << potionAmount << " Health Potions!" << endl;
-                _player->setCurrentWeight(_player->getCurrentWeight() + 1);
+                _player->setCurrentWeight(_player->getCurrentWeight() + potionAmount);
             }
             else if ((_player->getCurrentWeight() + potionAmount) > _player->getMaxWeight()) {
                 cout << _enemy->getName() << " dropped " << potionAmount << " Health Potions, but they are too heavy to carry." << endl;
@@ -475,7 +476,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             if ((_player->getCurrentWeight() + potionAmount) <= _player->getMaxWeight()) {
                 _player->getInventory().getItemByName(lootItems[2])->quantity += potionAmount;
                 cout << "Acquired " << potionAmount << " Stamina Potions!" << endl;
-                _player->setCurrentWeight(_player->getCurrentWeight() + 1);
+                _player->setCurrentWeight(_player->getCurrentWeight() + potionAmount);
             }
             else if ((_player->getCurrentWeight() + potionAmount) > _player->getMaxWeight()) {
                 cout << _enemy->getName() << " dropped " << potionAmount << " Stamina Potions, but they are too heavy to carry." << endl;
@@ -485,7 +486,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             if ((_player->getCurrentWeight() + potionAmount) <= _player->getMaxWeight()) {
                 _player->getInventory().getItemByName(lootItems[3])->quantity += potionAmount;
                 cout << "Acquired " << potionAmount << " Magicka Potions!" << endl;
-                _player->setCurrentWeight(_player->getCurrentWeight() + 1);
+                _player->setCurrentWeight(_player->getCurrentWeight() + potionAmount);
             }
             else if ((_player->getCurrentWeight() + potionAmount) > _player->getMaxWeight()) {
                 cout << _enemy->getName() << " dropped " << potionAmount << " Magicka Potions, but they are too heavy to carry." << endl;

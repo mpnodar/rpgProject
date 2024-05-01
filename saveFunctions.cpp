@@ -8,6 +8,8 @@ static void saveGamePointer(player* p) {
 	saveFile.close();
 }
 
+
+
 static void loadGamePointer(player* p) {
 	ifstream saveFile("gameData.txt");
 

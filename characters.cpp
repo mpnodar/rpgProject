@@ -14,12 +14,12 @@ character::character() {
     maxHealth = (40 + (level * 5));
     maxStamina = (50 + (level * 5));
     maxMagicka = (30 + (level * 5));
-    attackDamage = 50000 + (level * 2);
+    attackDamage = 5 + (level * 2);
     currentHealth = maxHealth;
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
     currentXp = 0;
-    requiredXp = 5 + level * 20;
+    requiredXp = 100 + ((level - 1) * 20);
     attackValue = false;
     defendValue = false;
     healthPotions = 3;
@@ -42,7 +42,7 @@ character::character(string _name, int _level) {
     currentMagicka = maxMagicka;
     currentStamina = maxStamina;
     currentXp = 0;
-    requiredXp = 100 + level * 20;
+    requiredXp = 100 + ((level - 1) * 20);
     attackValue = false;
     defendValue = false;
     healthPotions = 3;

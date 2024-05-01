@@ -9,9 +9,9 @@
 using namespace std;
 
 static void saveGamePointerMenu(player* p) {
-	ofstream saveFile("gameData.txt");
-	saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealth() << "\n" << p->getStamina() << "\n" << p->getMagicka() << "\n" << p->getAttack() << "\n" << p->getCurrentXP() << endl;
-	saveFile.close();
+    ofstream saveFile("gameData.txt");
+    saveFile << p->getName() << "\n" << p->getLevel() << "\n" << p->getClass() << "\n" << p->getGold() << "\n" << p->getHealthPotions() << "\n" << p->getHealth() << "\n" << p->getStamina() << "\n" << p->getMagicka() << "\n" << p->getAttack() << "\n" << p->getCurrentXP() << "\n" << p->getCurrentWeight() << "\n" << p->getMagickaPotions() << "\n" << p->getStaminaPotions() << "\n" << p->getMaxWeight() << endl;
+    saveFile.close();
 }
 
 
