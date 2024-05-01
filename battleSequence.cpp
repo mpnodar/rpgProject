@@ -66,39 +66,55 @@ int battleSequence::randintNear(int target, int min, int max) {
     return result;
 }
 
-int battleSequence::randintEnemyAttack(int parameter) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
+int battleSequence::randintEnemyAttack(int parameter, int max_parameter) {
 
-    double lowerProb = 0.1; // Start with a low probability for 5
-    double upperProb = 1.0; // Highest probability for 1 and 2 combined
+        // Define probability weights for each number
+        double weights[] = { 2.0, 2.0, 0.5, 0.5, 0.05 }; // 1 and 2 are likely, 3 and 4 initially very rare, 5 initially rare
 
-    // Adjust probabilities based on the parameter
-    for (int i = 0; i < parameter; ++i) {
-        lowerProb *= 0.9; // Slightly increase lower probability with each iteration
-        upperProb -= lowerProb; // Adjust upper probability accordingly
+        // Calculate the probability increase for 5
+        double increase_rate = (0.15 - 0.02) / max_parameter;
+
+        // Adjust weights based on the parameter
+        for (int i = 0; i < 5; ++i) {
+            weights[i] += (max_parameter - parameter) * increase_rate; // Increase weights for higher numbers as parameter decreases towards 0
+        }
+
+        // Ensure 3 is not generated unless parameter is less than half of max_parameter
+        if (parameter > max_parameter / 2) {
+            weights[3] = 0.0;
+        }
+
+        if (parameter <= max_parameter / 2) {
+            weights[3] = 1.5;
+        }
+
+        if (parameter <= max_parameter * 0.4) {
+            weights[2] = 1.5;
+        }
+
+        if (parameter <= max_parameter * 0.2) {
+            weights[4] = 0.5;
+        }
+
+        // Normalize weights to ensure they sum up to 1
+        double total_weight = 0.0;
+        for (int i = 0; i < 5; ++i) {
+            total_weight += weights[i];
+        }
+        for (int i = 0; i < 5; ++i) {
+            weights[i] /= total_weight;
+        }
+
+        // Generate random number using discrete distribution
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::discrete_distribution<> dist(std::begin(weights), std::end(weights));
+
+        // Return the randomly generated number (adding 1 to make it between 1 and 5)
+        return dist(gen) + 1;
     }
 
-    std::uniform_real_distribution<double> distrib(0.0, upperProb);
 
-    double randomNumber = distrib(gen);
-
-    if (randomNumber < lowerProb * 2) {
-        return 2; // Equally probable with 1
-    }
-    else if (randomNumber < lowerProb * 4) {
-        return 1; // Equally probable with 2
-    }
-    else if (randomNumber < lowerProb * 8) {
-        return 3; // Less likely
-    }
-    else if (randomNumber < lowerProb * 16) {
-        return 4; // Much less likely
-    }
-    else {
-        return 5; // Extremely unlikely
-    }
-}
 
 
 
@@ -187,7 +203,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             _player->displayData();
 
 
-        int enemyChoice = randintEnemyAttack(_enemy->getHealth());
+        int enemyChoice = randintEnemyAttack(_enemy->getHealth(), _enemy->getMaxHealth());
 
         if (enemyChoice == 2) {
             _enemy->setDefend(true);
@@ -212,7 +228,6 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
             case 2:
                 _player->magicAttack(*_enemy);
                 break;
-           
             }
             break;
         case 2:
@@ -252,10 +267,10 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
                 _enemy->defend();
                 break;
             case 3:
-                _enemy->restoreHealth(5);
+                _enemy->magicAttack(*_player);
                 break;
             case 4:
-                _enemy->magicAttack(*_player);
+                _enemy->restoreHealth(5);
                 break;
             case 5:
                 _enemy->run();

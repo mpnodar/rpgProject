@@ -6,7 +6,7 @@ private:
 	int randintLow(int min, int max);
 	int randintHigh(int min, int max);
 	int displayBattleOptions();
-	int randintEnemyAttack(int);
+	int randintEnemyAttack(int, int);
 	int displayAttacks();
 	int displaySpells();
 public:
