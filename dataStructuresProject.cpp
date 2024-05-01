@@ -38,8 +38,6 @@ void playSelectSound() {
 	}
 }
 
-
-
 static void characterSelect(player& you_) {
 
 	int input;
@@ -118,11 +116,11 @@ int main() {
 
 	switch (input) {
 	case 1:
-		loadGame(p);
+		loadGameNoPointer(p);
 		break;
 	case 2:
 		characterSelect(p);
-		saveGame(p);
+		saveGameNoPointer(p);
 		break;
 	}
 
@@ -133,7 +131,7 @@ int main() {
 	GameMap map;
 	map.play(&p); 
 
-	saveGame(p);
+	saveGameNoPointer(p);
 
 	/*RoadsideBeggar jim("Jim");
 	jim.printDialogue(0);*/

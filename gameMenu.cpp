@@ -22,7 +22,7 @@ ActionResponse gameMenu::menu(player* you) {
 
     do {
         std::system("cls");
-        cout << "\n1. Return to Game\n3. Manage Inventory\n6. Quit Game\n" << endl;
+        cout << "\n1. Return to Game\n2. Manage Inventory\n3. Save Game\n4. Quit Game\n" << endl;
         cin >> input;
 
         switch (input) {
@@ -33,21 +33,20 @@ ActionResponse gameMenu::menu(player* you) {
             break;
 
         case 2:
-            b.randomBattle(you);
-            AR = RandomBattle;
-            break;
-
-        case 3:
             you->manageInventory();
             AR = ManageInventory;
             break;
 
-        case 4:
+        case 3:
+            //saveGamePointer(you);
+            break;
+
+        case 5:
             b.randomBattle(you);
             AR = RandomBattle;
             break;
 
-        case 6:
+        case 4:
             quitGame();
             AR = QuitGame;
             break;

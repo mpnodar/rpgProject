@@ -13,6 +13,8 @@
 
 using namespace std;
 
+// saveFunction saveBattle;
+
 #pragma comment (lib, "winmm.lib")
 
 
@@ -211,6 +213,8 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
     startBattleMusic();
 
     // Set Fighting Status to True
+
+    
 
     _player->setFightingStatus(true);
     _enemy->setFightingStatus(true);
@@ -488,6 +492,7 @@ void battleSequence::battle(player* _player, enemy* _enemy) {
 
         _player->displayFullData();
 
+        // saveBattle.saveGamePointer(_player);
 
         soundThreadWin.join();
     }
