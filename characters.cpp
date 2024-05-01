@@ -27,6 +27,8 @@ character::character() {
     fightingStatus = false;
     poisoned = false;
     healing = false;
+    currentWeight = 9;
+    weightCapacity = 10 + (level * 5);
 }
 
 character::character(string _name, int _level) {
@@ -48,6 +50,8 @@ character::character(string _name, int _level) {
     fightingStatus = false;
     poisoned = false;
     healing = false;
+    currentWeight = 9;
+    weightCapacity = 10 + (level * 5);
 }
 
 enemy::enemy() {
@@ -183,6 +187,22 @@ player::player(int _level, string _name) {
     getInventory().addItem("Magicka Potions", 3);
     getInventory().addItem("Gold", 100);
 
+}
+
+int character::getCurrentWeight() {
+    return currentWeight;
+}
+
+void character::setCurrentWeight(int _weight) {
+    currentWeight = _weight;
+}
+
+int character::getMaxWeight() {
+    return weightCapacity;
+}
+
+void character::setMaxWeight(int _weight) {
+    weightCapacity = _weight;
 }
 
 int character::getGold() {
@@ -791,6 +811,6 @@ void character::displayFullData() {
     if (currentXp < requiredXp) { cout << "XP Until Next Level: " << requiredXp - currentXp << "\n" << endl; }
     else { cout << "Ready to Level Up" << "\n" << endl; }
 
-    cout << "Health: " << currentHealth << " / " << maxHealth << "\nStamina: " << currentStamina << " / " << maxStamina << "\nMagicka: " << currentMagicka << " / " << maxMagicka << endl;
+    cout << "Weight Capacity: " << getCurrentWeight() << " / " << getMaxWeight() << "\n\nHealth: " << currentHealth << " / " << maxHealth << "\nStamina: " << currentStamina << " / " << maxStamina << "\nMagicka: " << currentMagicka << " / " << maxMagicka << endl;
     cout << "----------------------" << endl;
 }

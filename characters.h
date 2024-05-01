@@ -30,6 +30,8 @@ protected:
     bool poisoned;
     bool healing;
     bool staminaHealing;
+    int currentWeight;
+    int weightCapacity;
     int gold = 100;
 
 
@@ -53,7 +55,11 @@ public:
     void magicHeal();
     void magicStaminaHeal();
 
+    int getCurrentWeight();
+    void setCurrentWeight(int);
 
+    int getMaxWeight();
+    void setMaxWeight(int);
 
     inventory& getInventory();
 
